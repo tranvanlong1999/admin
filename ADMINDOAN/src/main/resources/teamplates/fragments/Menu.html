@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<div class="container" style="margin: 0 0 !important;" th:fragment="Menu">
+    <div class="row-fluid">
+        <!-- start: Main Menu -->
+        <div id="sidebar-left" class="span2">
+            <div class="nav-collapse sidebar-nav">
+                <ul class="nav nav-tabs nav-stacked main-menu">
+                    <li><a href="#"><i class="icon-bar-chart"></i><span class="hidden-tablet">
+									Trang Chủ Admin</span></a></li>
+                    <li><a th:href="@{/danhmuc}"><i class="icon-align-justify"></i><span class="hidden-tablet">
+									Quản Lý Danh Mục</span></a></li>
+                    <li><a th:href="@{/sanpham}"><i class="icon-align-justify"></i><span class="hidden-tablet">
+									Quản Lý Sản Phẩm</span></a></li>
+                    <li><a href="Quanlyhoadon.html"><i class="icon-align-justify"></i><span class="hidden-tablet">
+									Quản Lý Hóa Đơn</span></a></li>
+                    <li><a th:href="@{/taikhoan}"><i class="icon-align-justify"></i><span class="hidden-tablet">
+									Quản Lý Tài Khoản</span></a></li>
+                    <li><a href="#"><i class="icon-lock"></i><span class="hidden-tablet"> Đăng nhập
+									Đăng Nhập</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- end: Main Menu -->
+
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>
+                    enabled to use this site.</p>
+            </div>
+        </noscript>
+    </div>
+    <!--/#content.span10-->
+</div>
+<!--/fluid-row-->
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Settings</h3>
+    </div>
+    <div class="modal-body">
+        <p>Here settings can be configured...</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+</body>
+
+</html>
