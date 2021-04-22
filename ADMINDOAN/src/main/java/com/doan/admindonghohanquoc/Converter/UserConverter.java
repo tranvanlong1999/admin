@@ -106,4 +106,31 @@ public class UserConverter {
         }
         return userEntity;
     }
+    public  UserOutput convertToUserInfoOutput(UserEntity user) {
+        UserOutput output = new UserOutput();
+        if(!ObjectUtils.isEmpty(user)) {
+            output.setId(user.getID());
+            output.setFullname(user.getFullName());
+            output.setEmail(user.getEmail());
+            output.setPassword(user.getPassWord());
+            output.setPhone(user.getPhone());
+            output.setAddress(user.getAddress());
+            output.setSex(user.getSex());
+        }
+        return output;
+    }
+    public UserInput convertToUserOutput(UserOutput userOutput)
+    {
+        UserInput userInput= new UserInput();
+        if(!ObjectUtils.isEmpty(userOutput))
+        {
+            userInput.setFullname(userOutput.getFullname());
+            userInput.setEmail(userOutput.getEmail());
+            userInput.setPassword(userOutput.getPassword());
+            userInput.setPhone(userOutput.getPhone());
+            userInput.setAddress(userOutput.getAddress());
+            userInput.setSex(userOutput.getSex());
+        }
+        return userInput;
+    }
 }

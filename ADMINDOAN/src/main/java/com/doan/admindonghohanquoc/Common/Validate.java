@@ -73,7 +73,7 @@ public class Validate {
 		if (!matcher.find()) {
 			return false;
 		}
-
+		System.out.println(flag);
 		return flag;
 
 
