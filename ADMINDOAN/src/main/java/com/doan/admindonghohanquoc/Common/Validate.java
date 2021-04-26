@@ -45,12 +45,12 @@ public class Validate {
 
 
 		// Case check fullname
-		// phai viet lien
+		// phai viet lien // khong co so
 		matcher = VALID_FULL_NAME_REGEX.matcher(fullname);
 		if (!matcher.find()) {
 			return false;
 		}
-		System.out.println(flag);
+
 		// Case check email
 		matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
 		if (!matcher.find()) {
@@ -58,12 +58,10 @@ public class Validate {
 		}
 
 		// Case check password
-		matcher = VALID_PASSWORD_REGEX.matcher(password);
+		/*matcher = VALID_PASSWORD_REGEX.matcher(password);
 		if (!matcher.find()) {
 			return false;
-		}
-		System.out.println(flag);
-
+		}*/
 		// Case check address
 		if (StringUtils.isEmpty(address)) {
 			return false;
@@ -73,7 +71,6 @@ public class Validate {
 		if (!matcher.find()) {
 			return false;
 		}
-		System.out.println(flag);
 		return flag;
 
 

@@ -100,6 +100,7 @@ public class UserService {
 
     @Transactional(rollbackOn = Exception.class)
     public String updateUserByAdmin(UserOutput userOutput) {
+        System.out.println(userOutput.getId());
         String error = null;
         String result = "Chinhsuataikhoan";
         UserEntity userEntity;
@@ -107,12 +108,13 @@ public class UserService {
             UserInput userInput = userConverter.convertToUserOutput(userOutput);
             if (Validate.checkRegister(userInput)) {
                 // case email đã có trong hệ thống
-                if (!ObjectUtils.isEmpty(userRepository.findByEmailAndIDNot(userOutput.getEmail(), userOutput.getId()))) {
+                /*if (!ObjectUtils.isEmpty(userRepository.findByEmailAndIDNot(userOutput.getEmail(), userOutput.getId()))) {
                     error = MessageConstant.CHECK_EMAIL;
                     return result;
-                }
+                }*/
                 // get userEntity ra
                 userEntity= userRepository.findById(userOutput.getId()).get();
+                System.out.println(userEntity);
                 userEntity.setFullName(userInput.getFullname());
                 userEntity.setEmail(userInput.getEmail());
                 userEntity.setPassWord(userInput.getPassword());
@@ -121,7 +123,7 @@ public class UserService {
                 userEntity.setSex(userInput.getSex());
                 // step 3: save
                 userRepository.save(userEntity);
-                // step 4: redirect page login
+                // step 4: redirect page quan ly tai khoản
                 result = "redirect:/taikhoan";
             }
         } catch (Exception e) {
@@ -148,7 +150,6 @@ public class UserService {
         } catch (Exception e) {
 
         }
-
         return output;
     }
 }

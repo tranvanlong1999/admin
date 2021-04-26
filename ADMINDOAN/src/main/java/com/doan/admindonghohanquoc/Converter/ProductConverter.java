@@ -1,9 +1,13 @@
 package com.doan.admindonghohanquoc.Converter;
 
+import com.doan.admindonghohanquoc.Constants.Constants;
 import com.doan.admindonghohanquoc.Model.Entity.ProductEntity;
+import com.doan.admindonghohanquoc.Model.Input.ProductInput;
 import com.doan.admindonghohanquoc.Model.OutPut.ProductOutput;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+
+import java.util.Date;
 
 
 @Component
@@ -32,7 +36,7 @@ public class ProductConverter {
         }
         return productOutput;
     }
-    /*public ProductEntity toProductInput(ProductInput productInput)
+    public ProductEntity toProductInput(ProductInput productInput)
     {
         ProductEntity productEntity = new ProductEntity();
         if(!ObjectUtils.isEmpty(productInput))
@@ -41,7 +45,7 @@ public class ProductConverter {
             productEntity.setImage(productInput.getImage());
             productEntity.setPrice(productInput.getPrice());
             productEntity.setDescription(productInput.getDescription());
-            productEntity.setBrandentity(productInput.getBrandentity());
+           /* productEntity.setBrandentity(productInput.);*/
             productEntity.setQuantitysold(productInput.getQuantitysold());
             productEntity.setQuantityremaining(productInput.getQuantityremaining());
             productEntity.setCreatedby(productInput.getCreatedby());
@@ -50,7 +54,7 @@ public class ProductConverter {
         }
         return productEntity;
     }
-    public ProductEntity toProductUpdateInput(ProductUpdateInput productUpdateInput)
+    /*public ProductEntity toProductUpdateInput(ProductUpdateInput productUpdateInput)
     {
         ProductEntity productEntity = new ProductEntity();
         if(!ObjectUtils.isEmpty(productUpdateInput))

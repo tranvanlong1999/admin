@@ -26,4 +26,10 @@ public class QuanLyDanhMucController {
     {
         return categoriesService.createCategorybyAdmin(model,categoryInput);
     }
+    @GetMapping("/test")
+    public String test()
+    {
+        return "test";
+    }
 }
+

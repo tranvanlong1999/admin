@@ -20,8 +20,6 @@ public class CategoriesConverter {
             categoriesEntity.setName(categoryInput.getName());
             categoriesEntity.setDescription(categoryInput.getDecription());
             categoriesEntity.setStatus(categoryInput.getStatus());
-            categoriesEntity.setCreatedat(new Date());
-            categoriesEntity.setCreatedby(categoryInput.getCreatedby());
         }
         return categoriesEntity;
     }
@@ -34,11 +32,6 @@ public class CategoriesConverter {
             categoriesOutput.setName(categoriesEntity.getName());
             categoriesOutput.setDescription(categoriesEntity.getDescription());
             categoriesOutput.setStatus(categoriesEntity.getStatus());
-            categoriesOutput.setCreatedat(categoriesEntity.getCreatedat());
-            categoriesOutput.setCreatedby(categoriesEntity.getCreatedby());
-            categoriesOutput.setUpdatedat(categoriesEntity.getUpdatedat());
-            categoriesOutput.setUpdatedby(categoriesEntity.getUpdatedby());
-            categoriesOutput.setIsformen(categoriesEntity.getIsformen());
         }
         return  categoriesOutput;
     }
@@ -51,8 +44,6 @@ public class CategoriesConverter {
             categoriesEntity.setName(categoryUpdateInput.getName());
             categoriesEntity.setDescription(categoryUpdateInput.getDescription());
             categoriesEntity.setStatus(categoryUpdateInput.getStatus());
-            categoriesEntity.setUpdatedat(new Date());
-            categoriesEntity.setUpdatedby(categoryUpdateInput.getUpdatedby());
         }
         return categoriesEntity;
     }

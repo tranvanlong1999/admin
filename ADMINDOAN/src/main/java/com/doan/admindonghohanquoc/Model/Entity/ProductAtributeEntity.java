@@ -23,5 +23,7 @@ public class ProductAtributeEntity {
     @ManyToOne
     @JoinColumn(name="Color_ID")
     private ColorEntity colorentity ;
+    @Column
+    private int quantity;
 
 }

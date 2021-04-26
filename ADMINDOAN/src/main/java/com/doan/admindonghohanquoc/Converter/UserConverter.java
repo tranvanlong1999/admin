@@ -124,6 +124,7 @@ public class UserConverter {
         UserInput userInput= new UserInput();
         if(!ObjectUtils.isEmpty(userOutput))
         {
+            userInput.setId(userOutput.getId());
             userInput.setFullname(userOutput.getFullname());
             userInput.setEmail(userOutput.getEmail());
             userInput.setPassword(userOutput.getPassword());

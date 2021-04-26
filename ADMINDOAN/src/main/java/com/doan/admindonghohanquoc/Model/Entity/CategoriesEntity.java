@@ -21,16 +21,6 @@ public class CategoriesEntity {
     private String description;
     @Column(name = "Status")
     private Integer status;
-    @Column(name ="Created_At")
-    private Date createdat;
-    @Column(name = "Created_By")
-    private String createdby;
-    @Column(name ="Updated_At")
-    private Date updatedat;
-    @Column(name = "Updated_By")
-    private String updatedby;
-    @Column(name="Is_For_Men")
-    private Integer isformen;
     @OneToMany(mappedBy = "categoriesEntity")
     private List<ProductCategoriesEntity> categoriesEntityList= new ArrayList<>();
 

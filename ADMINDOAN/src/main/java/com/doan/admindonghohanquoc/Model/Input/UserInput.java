@@ -7,6 +7,7 @@ import java.util.Date;
 @Data
 public class UserInput {
     // khi truyền dữ liệu từ  client phải giống với biến ở đây
+    private Integer id;
     private String username;
     private String password;
     private String fullname;
