@@ -107,7 +107,8 @@ public class ProductService {
                 imagePath.append(UUID.randomUUID().toString());
                 imagePath.append(fileName.substring(fileName.length() - 8));
 
-                File convFile = new File("src/main/resources/static/assets" + imagePath.toString());
+
+                File convFile = new File("src/main/resources/static/" + imagePath.toString());
                 if (convFile.createNewFile()) {
                     FileOutputStream fos = new FileOutputStream(convFile);
                     fos.write(files[i].getBytes());
