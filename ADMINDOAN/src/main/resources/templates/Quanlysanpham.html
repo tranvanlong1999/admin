@@ -89,7 +89,7 @@
 							<tr th:each="index :${productInfo}">
 								<td class="center" th:text="*{index.getId()}"></td>
 								<td class="center">
-									<img class="default-img"  th:utext="${index.path}" >
+									<img class="default-img"  th:src="@{${index.image}}">
 								</td>
 								<td class="center" th:text="${index.priceStr}"></td>
 								<td th:text="*{index.getProductname()}"></td>
@@ -99,10 +99,13 @@
 								</td>
 								<td class="center">
 									<a class="btn btn-success" type="button"  th:href="@{/chinhsuasanpham/{productid}(productid=${index.getId()})}">
-										Chỉnh Sửa
+										Sửa
 									</a>
 									<a class="btn btn-danger" href="#">
 										Xóa
+									</a>
+									<a class="btn btn-success" type="button"  th:href="@{/chinhsuasanpham/{productid}(productid=${index.getId()})}">
+										Thêm Chi tiết sản phẩm
 									</a>
 								</td>
 							</tr>

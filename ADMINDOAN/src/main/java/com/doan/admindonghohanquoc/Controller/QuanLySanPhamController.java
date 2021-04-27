@@ -55,23 +55,18 @@ public class QuanLySanPhamController {
     public String pageThemsanpham(Model model) {
         List<BrandOutput> brandOutputList= brandService.getlistbrand();
         List<CategoriesOutput>categoriesOutputs= categoriesService.getListCategories();
-        List<SizeEntity> sizeEntityList= sizeService.getListSize();
-        List<ColorEntity> colorEntityList= colorService.getListColor();
+        /*List<SizeEntity> sizeEntityList= sizeService.getListSize();
+        List<ColorEntity> colorEntityList= colorService.getListColor();*/
         model.addAttribute("product",new ProductInput());
         model.addAttribute("brandlist",brandOutputList);
         model.addAttribute("categorylist",categoriesOutputs);
-        model.addAttribute("sizeEntityList",sizeEntityList);
-        model.addAttribute("colorEntityList",colorEntityList);
+        /*model.addAttribute("sizeEntityList",sizeEntityList);
+        model.addAttribute("colorEntityList",colorEntityList);*/
         model.addAttribute("error", null);
         return "Themsanpham";
     }
     @PostMapping("/themsanpham")
-    public String createProductByAdmin(Model model,@ModelAttribute("productInput") ProductInput productInput) {
-         return productService.createProductByAdmin(model,productInput);
-    }
-    @PostMapping("/tao/anh/{productId}")
-    public void createImagesInProduct(@RequestParam("files") MultipartFile[] files,
-                                      @PathVariable Integer productId) {
-          productService.createImagesInProduct(files, productId);
+    public String createProductByAdmin(Model model,@ModelAttribute("productInput") ProductInput productInput,@RequestParam("files") MultipartFile[] files) {
+         return productService.createProductByAdmin(model,productInput,files);
     }
 }

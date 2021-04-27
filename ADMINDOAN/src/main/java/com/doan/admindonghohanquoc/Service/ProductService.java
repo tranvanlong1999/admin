@@ -2,10 +2,7 @@ package com.doan.admindonghohanquoc.Service;
 
 import com.doan.admindonghohanquoc.Constants.Constants;
 import com.doan.admindonghohanquoc.Converter.ProductConverter;
-import com.doan.admindonghohanquoc.Model.Entity.ImageEntity;
-import com.doan.admindonghohanquoc.Model.Entity.ProductAtributeEntity;
-import com.doan.admindonghohanquoc.Model.Entity.ProductCategoriesEntity;
-import com.doan.admindonghohanquoc.Model.Entity.ProductEntity;
+import com.doan.admindonghohanquoc.Model.Entity.*;
 import com.doan.admindonghohanquoc.Model.Input.ProductAtributeInput;
 import com.doan.admindonghohanquoc.Model.Input.ProductCategoriesInput;
 import com.doan.admindonghohanquoc.Model.Input.ProductInput;
@@ -44,8 +41,7 @@ public class ProductService {
     ProductAtributeRepository productAtributeRepository;
     @Autowired
     CategoriesRepository categoriesRepository;
-    @Autowired
-    ProductCategoriesRepository productCategoriesRepository;
+
     @Autowired
     ImageRepository imagesRepository;
 
@@ -63,20 +59,17 @@ public class ProductService {
 
     }
 
-    public String createProductByAdmin(Model model, ProductInput productInput) {
+    public String createProductByAdmin(Model model, ProductInput productInput,MultipartFile[] files) {
         String result = "Themsanpham";
         String error = null;
         ProductEntity product = null;
         System.out.println(productInput);
         try {
-            List<ProductAtributeEntity> productAtributeEntityList = new ArrayList<>();
-            List<ProductCategoriesEntity> productCategoriesEntityList = new ArrayList<>();
-            List<ProductAtributeInput> productAtributeInputList = productInput.getProductAtributeInputList();
-            List<ProductCategoriesInput> productCategoriesInputList = productInput.getProductCategoriesInputList();
             ProductEntity productEntity = productConverter.toProductInput(productInput);
-            // case brand is null
-            if (ObjectUtils.isEmpty(productEntity.getBrandentity()))
-                productEntity.setBrandentity(brandRepository.findById(Constants.BRAND_DEFAULT).get());
+            BrandEntity brandEntity= brandRepository.findById(productInput.getBrandid()).get();
+            CategoriesEntity categoriesEntity= categoriesRepository.findById(productInput.getCategoryid()).get();
+            productEntity.setBrandentity(brandEntity);
+            productEntity.setCategory(categoriesEntity);
             // save product to db
             productEntity = productRepository.save(productEntity);
             // set data in product
@@ -84,28 +77,7 @@ public class ProductService {
             productEntity.setPath(Utils.formatStringtoUrl(productEntity.getProductname()));
             // save product to db
             productEntity = productRepository.save(productEntity);
-            //set data to list product atribtute
-            if (productAtributeInputList.size() > 0)
-                for (ProductAtributeInput productAtributeInput : productAtributeInputList) {
-                    ProductAtributeEntity productAtributeEntity = new ProductAtributeEntity();
-                    productAtributeEntity.setProductentity(productEntity);
-                    productAtributeEntity.setSizeentity(sizeRepository.findById(productAtributeInput.getSizeid()).get());
-                    productAtributeEntity.setColorentity(colorRepository.findById(productAtributeInput.getColorid()).get());
-                    productAtributeEntityList.add(productAtributeEntity);
-                }
-            // save product atribute vao db
-            productAtributeRepository.saveAll(productAtributeEntityList);
-            System.out.println("aaa");
-            // set data to list product categories
-            for (ProductCategoriesInput productCategoriesInput : productCategoriesInputList) {
-                ProductCategoriesEntity productCategoriesEntity = new ProductCategoriesEntity();
-                productCategoriesEntity.setProductEntity(productEntity);
-                productCategoriesEntity.setCategoriesEntity(categoriesRepository.findById(productCategoriesInput.getCategoriesid()).get());
-                productCategoriesEntityList.add(productCategoriesEntity);
-            }
-            // save productcategories vao db
-            productCategoriesRepository.saveAll(productCategoriesEntityList);
-
+            createImagesInProduct(files,productEntity.getId());
             result = "redirect:/sanpham";
         } catch (Exception e) {
 
@@ -114,7 +86,6 @@ public class ProductService {
     }
 
     public void createImagesInProduct(MultipartFile[] files, Integer productId) {
-        String result = "uploadfile";
         try {
             List<ImageEntity> images = new ArrayList<>();
             int i = 0;
@@ -127,17 +98,16 @@ public class ProductService {
             }
 
             for (i = 0; i < length; i++) {
+
                 ImageEntity image = new ImageEntity();
                 StringBuilder imagePath = new StringBuilder();
                 // get file name in file
                 fileName = files[i].getOriginalFilename();
-
                 // set image path
                 imagePath.append(UUID.randomUUID().toString());
                 imagePath.append(fileName.substring(fileName.length() - 8));
 
-                File convFile = new File("src/main/resources/static/" + imagePath.toString());
-
+                File convFile = new File("src/main/resources/static/assets" + imagePath.toString());
                 if (convFile.createNewFile()) {
                     FileOutputStream fos = new FileOutputStream(convFile);
                     fos.write(files[i].getBytes());
@@ -147,6 +117,7 @@ public class ProductService {
                 // set data to list image
                 image.setPath(Constants.BASE_IMAGE_URL + imagePath.toString());
                 image.setProduct(product);
+
                 images.add(image);
             }
             // delete all image of product

@@ -21,8 +21,5 @@ public class CategoriesEntity {
     private String description;
     @Column(name = "Status")
     private Integer status;
-    @OneToMany(mappedBy = "categoriesEntity")
-    private List<ProductCategoriesEntity> categoriesEntityList= new ArrayList<>();
-
 
 }

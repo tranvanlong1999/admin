@@ -82,15 +82,8 @@
                                 <div class="control-group">
                                     <label class="control-label" for="fileInput" style="width: 180px;">Chọn Ảnh</label>
                                     <div class="controls">
-                                        <input class="input-file uniform_on" id="fileInput1" type="file"
+                                        <input class="input-file uniform_on" id="fileInput1" type="file" name="files" multiple
                                                style="margin-left: 137px;">
-                                        <br/>
-                                        <input class="input-file uniform_on" id="fileInput2" type="file"
-                                               style="margin-left: 137px;">
-                                        <br/>
-                                        <input class="input-file uniform_on" id="fileInput3" type="file"
-                                               style="margin-left: 137px;">
-                                        <br/>
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -111,26 +104,6 @@
                                             <option th:each="ca: ${categorylist}" th:value="${ca.id}"  th:utext="${ca.name}">
                                             </option>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="selectError" style="width: 232px;">Chi tiết sản
-                                        phẩm</label>
-                                    <div class="controls">
-                                        <select id="selectError3" data-rel="chosen" style="margin-left: 90px;">
-                                            <option th:each="si: ${sizeEntityList}">
-                                                <span th:text="${si.getName()}"></span>
-                                            </option>
-                                        </select>
-                                        <select id="selectError4" data-rel="chosen" style="margin-left: 233px;">
-                                            <option th:each="co: ${colorEntityList}">
-                                                <span th:text="${co.getName()}"></span>
-                                            </option>
-                                        </select>
-                                        <br />
-                                        <br />
-                                        <input style="margin-left: 142px;" name="price" placeholder="Số Lượng sản phẩm" type="text"
-                                               th:field="*{quantitysold}">
                                     </div>
                                 </div>
                                 <div class="control-group hidden-phone">

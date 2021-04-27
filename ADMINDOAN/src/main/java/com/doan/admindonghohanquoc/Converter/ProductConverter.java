@@ -27,14 +27,12 @@ public class ProductConverter {
             productOutput.setBrandentity(productEntity.getBrandentity());
             productOutput.setQuantitysold(productEntity.getQuantitysold());
             productOutput.setQuantityremaining(productEntity.getQuantityremaining());
-            productOutput.setCreatedat(productEntity.getCreatedat());
-            productOutput.setCreatedby(productEntity.getCreatedby());
-            productOutput.setUpdatedat(productEntity.getUpdatedat());
-            productOutput.setUpdatedby(productEntity.getUpdatedby());
+            System.out.println(productOutput.getQuantityremaining());
             productOutput.setPath(productEntity.getPath());
             productOutput.setPriceStr(productEntity.getPriceStr());
         }
         return productOutput;
+
     }
     public ProductEntity toProductInput(ProductInput productInput)
     {
@@ -45,9 +43,6 @@ public class ProductConverter {
             productEntity.setImage(productInput.getImage());
             productEntity.setPrice(productInput.getPrice());
             productEntity.setDescription(productInput.getDescription());
-           /* productEntity.setBrandentity(productInput.);*/
-            productEntity.setQuantitysold(productInput.getQuantitysold());
-            productEntity.setQuantityremaining(productInput.getQuantityremaining());
             productEntity.setCreatedby(productInput.getCreatedby());
             productEntity.setStatus(Constants.STATUS_ACTIVE);
             productEntity.setCreatedat(new Date());

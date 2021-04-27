@@ -44,9 +44,9 @@ public class ProductEntity {
     private String updatedby;
     @Column(name = "Path")
     private String path;
-
-    @OneToMany(mappedBy = "productEntity")
-    private List<ProductCategoriesEntity> categoriesEntityList= new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "Category_Id")
+    private CategoriesEntity category;
     @OneToMany(mappedBy = "productentity")
     @Exclude
     private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();

@@ -13,10 +13,8 @@ public class ProductInput {
     private Integer price;
     private String description;
     private Integer brandid;
-    private Integer quantitysold;
-    private Integer quantityremaining;
     private String createdby;
     private Integer categoryid;
-    private List<ProductAtributeInput> productAtributeInputList;
-    private List<ProductCategoriesInput> productCategoriesInputList;
+    /*private List<ProductAtributeInput> productAtributeInputList;
+    private List<ProductCategoriesInput> productCategoriesInputList;*/
 }

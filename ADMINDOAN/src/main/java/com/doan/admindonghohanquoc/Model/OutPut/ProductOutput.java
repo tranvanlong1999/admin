@@ -14,8 +14,8 @@ public class ProductOutput {
     private String description;
     private String status;
     private BrandEntity brandentity;
-    private int quantitysold;
-    private int quantityremaining;
+    private Integer quantitysold;
+    private Integer quantityremaining;
     private Date createdat;
     private String createdby;
     private Date updatedat;
