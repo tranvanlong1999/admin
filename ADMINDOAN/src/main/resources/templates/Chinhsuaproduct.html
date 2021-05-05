@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SWISS</title>
+
+    <div th:replace="fragments/style :: style"></div>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <!-- /.navbar -->
+    <!-- Main Sidebar Container -->
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar ::sidebar"></div>
+    <!-- /.sidebar -->
+    <!-- Content Wrapper. Contains page content -->
+    <form th:action="@{/chinhsuaproduct}" method="post" class="form-horizontal" enctype="multipart/form-data" th:object="${productdetai}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4" style="margin-left: 268px;">Tên Sản Phẩm </label>
+                <input type="text" class="form-control" id="inputEmail4" placeholder="Tên sản phẩm" style="margin-left: 268px;width: 400px;" th:field="*{productname}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4" style="margin-left: 137px;">Giá Sản Phẩm</label>
+                <input type="text" class="form-control" id="inputPassword4" placeholder="Giá sản phẩm" style="margin-left: 136px;width: 400px;" th:field="*{price}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4" style="margin-left: 268px;">Chọn Danh Mục</label>
+                <select id="ok1" class="form-control" style="margin-left: 268px;width: 400px;" th:field="*{categoryid}">
+                    <option th:each="ca: ${categorylist}" th:value="${ca.id}"
+                            th:utext="${ca.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4" style="margin-left: 137px;">Chọn Thương Hiệu</label>
+                <select id="ok2" class="form-control" style="margin-left: 136px;width: 400px;" th:field="*{brandid}">
+                    <option th:each="ba : ${brandlist}" th:value="${ba.id}"
+                            th:utext="${ba.name}">...</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  style="margin-left: 268px;">Chọn ảnh</label>
+            <input class="input-file uniform_on" id="fileInput1" type="file"
+                   name="files" multiple>
+        </div>
+        <div class="form-group">
+            <label  style="margin-left: 268px;">Mô tả</label>
+            <textarea name="desc0" placeholder="Description" class="form-control" style="margin-left: 268px;width: 600px;" rows="8"  th:field="*{description}"></textarea>
+        </div>
+        <br />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary"
+                    style="margin-left: 265px;">Thêm
+            </button>
+            <button type="reset" class="btn">Thoát</button>
+        </div>
+    </form>
+    <!-- /.content-wrapper -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<div th:replace="fragments/script :: script"></div>
+
+</body>
+
+</html>

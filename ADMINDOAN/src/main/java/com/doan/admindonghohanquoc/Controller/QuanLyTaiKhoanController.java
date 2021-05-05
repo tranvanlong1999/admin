@@ -1,7 +1,6 @@
 package com.doan.admindonghohanquoc.Controller;
 
 import com.doan.admindonghohanquoc.Model.Input.UserInput;
-import com.doan.admindonghohanquoc.Model.Input.UserUpdateInput;
 import com.doan.admindonghohanquoc.Model.OutPut.UserOutput;
 import com.doan.admindonghohanquoc.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/taikhoan")
 public class QuanLyTaiKhoanController {
     @Autowired
     private UserService userService;
     UserOutput userOutput;
-    @GetMapping
+    @GetMapping("/taikhoan")
     public String getListUser(Model model) {
         model.addAttribute("listtaikhoan", userService.getListUser());
         model.addAttribute("error", null);
-        userService.getListUser();
         return "Quanlytaikhoan";
     }
 

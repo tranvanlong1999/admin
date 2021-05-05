@@ -1,12 +1,16 @@
 package com.doan.admindonghohanquoc.Service;
 
+import com.doan.admindonghohanquoc.Common.MessageConstant;
+import com.doan.admindonghohanquoc.Common.Validate;
 import com.doan.admindonghohanquoc.Constants.Constants;
 import com.doan.admindonghohanquoc.Converter.ProductConverter;
 import com.doan.admindonghohanquoc.Model.Entity.*;
 import com.doan.admindonghohanquoc.Model.Input.ProductAtributeInput;
 import com.doan.admindonghohanquoc.Model.Input.ProductCategoriesInput;
 import com.doan.admindonghohanquoc.Model.Input.ProductInput;
+import com.doan.admindonghohanquoc.Model.Input.UserInput;
 import com.doan.admindonghohanquoc.Model.OutPut.ProductOutput;
+import com.doan.admindonghohanquoc.Model.OutPut.UserOutput;
 import com.doan.admindonghohanquoc.Repository.*;
 import com.doan.admindonghohanquoc.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +19,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -48,9 +50,11 @@ public class ProductService {
     public List<ProductOutput> getListProduct() {
         List<ProductOutput> productOutputList = new LinkedList<>();
         try {
-            Page<ProductEntity> page = productRepository.findAll(PageRequest.of(0, 5));
+            Page<ProductEntity> page = productRepository.findAll(PageRequest.of(0, 100));
             for (ProductEntity productEntity : page) {
-                productOutputList.add(productConverter.toProductEntity(productEntity));
+                if(productEntity.getStatus()==1) {
+                    productOutputList.add(productConverter.toProductEntity(productEntity));
+                }
             }
         } catch (Exception e) {
 
@@ -63,22 +67,36 @@ public class ProductService {
         String result = "Themsanpham";
         String error = null;
         ProductEntity product = null;
-        System.out.println(productInput);
         try {
-            ProductEntity productEntity = productConverter.toProductInput(productInput);
-            BrandEntity brandEntity= brandRepository.findById(productInput.getBrandid()).get();
-            CategoriesEntity categoriesEntity= categoriesRepository.findById(productInput.getCategoryid()).get();
-            productEntity.setBrandentity(brandEntity);
-            productEntity.setCategory(categoriesEntity);
-            // save product to db
-            productEntity = productRepository.save(productEntity);
-            // set data in product
-            productEntity.setProductname(productEntity.getProductname() + "MS" + productEntity.getId());
-            productEntity.setPath(Utils.formatStringtoUrl(productEntity.getProductname()));
-            // save product to db
-            productEntity = productRepository.save(productEntity);
-            createImagesInProduct(files,productEntity.getId());
-            result = "redirect:/sanpham";
+            if(Validate.checkInputProduct(productInput))
+            {
+                List<ProductAtributeEntity>  productAtributeEntities= new ArrayList<>();
+                ProductEntity productEntity = productConverter.toProductInput(productInput);
+                BrandEntity brandEntity= brandRepository.findById(productInput.getBrandid()).get();
+                CategoriesEntity categoriesEntity= categoriesRepository.findById(productInput.getCategoryid()).get();
+                List<ProductAtributeInput> productAtributeInputs= productInput.getProductAtributeInputs();
+                productEntity.setBrandentity(brandEntity);
+                productEntity.setCategory(categoriesEntity);
+                // save product to db
+                productEntity = productRepository.save(productEntity);
+                // set data in product
+                productEntity.setProductname(productEntity.getProductname() + "MS" + productEntity.getId());
+                productEntity.setPath(Utils.formatStringtoUrl(productEntity.getProductname()));
+                // save product to db
+                productEntity = productRepository.save(productEntity);
+                for (ProductAtributeInput input: productAtributeInputs) {
+                    ProductAtributeEntity productAtributeEntity= new ProductAtributeEntity();
+                    productAtributeEntity.setProductentity(productEntity);
+                    productAtributeEntity.setSizeentity(sizeRepository.findById(input.getSizeid()).get());
+                    productAtributeEntity.setColorentity(colorRepository.findById(input.getColorid()).get());
+                    productAtributeEntity.setQuantity(input.getQuantity());
+                    productAtributeEntities.add(productAtributeEntity);
+                }
+                productAtributeRepository.saveAll(productAtributeEntities);
+                createImagesInProduct(files,productEntity.getId());
+                result = "redirect:/sanpham";
+            }
+
         } catch (Exception e) {
 
         }
@@ -136,6 +154,51 @@ public class ProductService {
 
         }
     }
+    public String deleteProductByAdmin(Integer id, Model model) {
+        String error = null;
+        String result = "";
+        try {
+            // lay ra product can xoa dua vao id
+            ProductEntity productEntity = productRepository.findById(id).get();
+            if (ObjectUtils.isEmpty(productEntity)) {
+                throw new Exception("Product not exist");
+            }
+            //xóa logic
+            productEntity.setStatus(0);
+            productRepository.save(productEntity);
+            List<ProductAtributeEntity> productAtributeEntityList= productAtributeRepository.findByProductId(id);
+            productAtributeRepository.deleteAll(productAtributeEntityList);
+        } catch (Exception e) {
+            error = MessageConstant.DELETE_ERROR;
+        }
+        model.addAttribute("error", error);
+        return "redirect:/sanpham";
+    }
+    public String updateproduct(ProductOutput productOutput,MultipartFile[] files) {
+        String error = null;
+        String result = "Chinhsuasanpham";
+        System.out.println(productOutput);
+        ProductEntity productEntity= productRepository.findById(productOutput.getId()).get();
+
+        if(!ObjectUtils.isEmpty(productEntity))
+        {
+            productEntity.setProductname(productOutput.getProductname());
+            productEntity.setDescription(productOutput.getDescription());
+            productEntity.setBrandentity(brandRepository.findById(productOutput.getBrandid()).get());
+            productEntity.setCategory(categoriesRepository.findById(productOutput.getCategoryid()).get());
+            productEntity.setPrice(productOutput.getPrice());
+            productEntity.setUpdatedat(new Date());
+            // get image of product
+            List<ImageEntity> imageEntityList= imagesRepository.findAll();
+            imagesRepository.deleteAll(imageEntityList);
+            //
+            createImagesInProduct(files,productOutput.getId());
+            productRepository.save(productEntity);
+            result="redirect:/sanpham";
+        }
+        return result;
+    }
+
 
 }
 

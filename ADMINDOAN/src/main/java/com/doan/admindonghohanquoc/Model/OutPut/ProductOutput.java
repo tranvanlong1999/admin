@@ -1,6 +1,6 @@
 package com.doan.admindonghohanquoc.Model.OutPut;
-
 import com.doan.admindonghohanquoc.Model.Entity.BrandEntity;
+import com.doan.admindonghohanquoc.Model.Entity.CategoriesEntity;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,17 +9,14 @@ import java.util.Date;
 public class ProductOutput {
     private Integer id;
     private String productname;
-    private String image;
-    private Integer price;
     private String description;
-    private String status;
-    private BrandEntity brandentity;
-    private Integer quantitysold;
-    private Integer quantityremaining;
-    private Date createdat;
-    private String createdby;
-    private Date updatedat;
-    private String updatedby;
-    private String path;
+    private Integer brandid;
+    private Integer categoryid;
     private String PriceStr;
+    private int price;
+    private Date createAt;
+    private Integer status;
+    private String Image;
+    private String brandname;
+    private String categoryname;
 }

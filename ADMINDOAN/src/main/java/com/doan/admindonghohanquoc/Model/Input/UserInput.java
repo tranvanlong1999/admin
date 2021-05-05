@@ -13,7 +13,7 @@ public class UserInput {
     private String fullname;
     private String phone;
     private String address;
-    private int status;
+    private String status;
     private int role;
     private String email;
     private int sex;

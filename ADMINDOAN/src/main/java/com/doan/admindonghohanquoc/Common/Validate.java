@@ -1,6 +1,7 @@
 package com.doan.admindonghohanquoc.Common;
 
 import com.doan.admindonghohanquoc.Model.Input.CategoryInput;
+import com.doan.admindonghohanquoc.Model.Input.ProductInput;
 import com.doan.admindonghohanquoc.Model.Input.UserInput;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +15,6 @@ public class Validate {
 
 	public static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^[a-zA-Z0-9]{6,}$", Pattern.CASE_INSENSITIVE);
 	public static final Pattern VALID_PHONE_REGEX = Pattern.compile("^[0-9]{10}$", Pattern.CASE_INSENSITIVE);
-
 	public static boolean checkthemdanhmuc(CategoryInput danhmuc) {
 
 		boolean flag = true;
@@ -32,6 +32,31 @@ public class Validate {
 
 		return flag;
 	}
+	public static boolean checkInputProduct(ProductInput product) {
+
+		boolean flag = true;
+		String productName= product.getProductname();
+		Integer price= product.getPrice();
+		String description= product.getDescription();
+		Matcher matcher;
+		// Case check product name
+		if(!StringUtils.hasText(productName))
+		{
+			return false;
+		}
+
+		// Case check price
+		if(price<0)
+		{
+			return false;
+		}
+		// Case check description
+		if(!StringUtils.hasText(description))
+		{
+			return false;
+		}
+		return flag;
+	}
 	@SuppressWarnings("deprecation")
 	public static boolean checkRegister(UserInput user) {
 
@@ -44,12 +69,12 @@ public class Validate {
 		Matcher matcher;
 
 
-		// Case check fullname
+		/*// Case check fullname
 		// phai viet lien // khong co so
 		matcher = VALID_FULL_NAME_REGEX.matcher(fullname);
 		if (!matcher.find()) {
 			return false;
-		}
+		}*/
 
 		// Case check email
 		matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
@@ -66,11 +91,16 @@ public class Validate {
 		if (StringUtils.isEmpty(address)) {
 			return false;
 		}
+		// Case check ho va ten
+		if (StringUtils.isEmpty(fullname)) {
+			return false;
+		}
 		// Case check phone
 		matcher = VALID_PHONE_REGEX.matcher(phone);
 		if (!matcher.find()) {
 			return false;
 		}
+
 		return flag;
 
 

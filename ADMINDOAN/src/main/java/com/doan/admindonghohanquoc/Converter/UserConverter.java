@@ -19,21 +19,13 @@ public class UserConverter {
         if(!ObjectUtils.isEmpty(userEntity))
         {
             userOutput.setId(userEntity.getID());
-            userOutput.setUsername(userEntity.getUserName());
             userOutput.setFullname(userEntity.getFullName());
             userOutput.setPhone(userEntity.getPhone());
-            userOutput.setSex(userEntity.getSex());
             userOutput.setAddress(userEntity.getAddress());
-            userOutput.setRole(userEntity.getRole());
-            userOutput.setStatus(userEntity.getStatus());
-            userOutput.setCreatedby(userEntity.getCreateBy());
-            userOutput.setForgetcode(userEntity.getForgetCode());
-            userOutput.setForgetcodedate(userEntity.getForgetCodeDate());
-            userOutput.setJoinedat(userEntity.getJoinedAt());
-            userOutput.setUpdatedat(userEntity.getUpdatedAt());
-            userOutput.setUpdatedby(userEntity.getUdatedBy());
             userOutput.setEmail(userEntity.getEmail());
             userOutput.setPassword(userEntity.getPassWord());
+            if(userEntity.getStatus()==1)
+                userOutput.setStatus("Hoạt động");
         }
         return userOutput;
     }
@@ -42,7 +34,6 @@ public class UserConverter {
         UserEntity userEntity = new UserEntity();
         if(!ObjectUtils.isEmpty(userInput))
         {
-            userEntity.setUserName(userInput.getEmail());
             //Trong đó BCrypt.gensalt xác định số vòng, số vòng dao động từ 4-30, số vòng càng lớn thì thời gian thực hiện băm càng lâu.
            /* userEntity.setPassWord(BCrypt.hashpw(userInput.getPassword(),BCrypt.gensalt(12)));*/
             userEntity.setPassWord(userInput.getPassword());
@@ -52,7 +43,6 @@ public class UserConverter {
             userEntity.setStatus(1);
             userEntity.setRole(2); // la nhân viên
             userEntity.setEmail(userInput.getEmail());
-            userEntity.setSex(userInput.getSex());
             userEntity.setCreateBy(userInput.getFullname());
             userEntity.setJoinedAt(new Date());
         }
@@ -64,7 +54,6 @@ public class UserConverter {
         UserEntity userEntity = new UserEntity();
         if(!ObjectUtils.isEmpty(userInput))
         {
-            userEntity.setUserName(userInput.getEmail());
             /*userEntity.setPassWord(BCrypt.hashpw(userInput.getPassword(),BCrypt.gensalt(12)));*/
             userEntity.setPassWord(userInput.getPassword());
         }
@@ -87,7 +76,6 @@ public class UserConverter {
         if(!ObjectUtils.isEmpty(userUpdateInput))
         {
             userEntity.setID(userUpdateInput.getId());
-            userEntity.setUserName(userUpdateInput.getUsername());
             if(!userUpdateInput.getPassword().isEmpty())
                 userEntity.setPassWord(BCrypt.hashpw(userUpdateInput.getNewPassword(),BCrypt.gensalt(12)));
             userEntity.setFullName(userUpdateInput.getFullname());
@@ -98,7 +86,6 @@ public class UserConverter {
             userEntity.setRole(userUpdateInput.getRole());
             userEntity.setEmail(userUpdateInput.getEmail());
             userEntity.setForgetCodeDate(userUpdateInput.getForgetcodedate());
-            userEntity.setSex(userUpdateInput.getSex());
             userEntity.setJoinedAt(userUpdateInput.getJoinedat());
             userEntity.setCreateBy(userUpdateInput.getCreatedby());
             userEntity.setUpdatedAt(userUpdateInput.getUpdatedat());
@@ -115,7 +102,8 @@ public class UserConverter {
             output.setPassword(user.getPassWord());
             output.setPhone(user.getPhone());
             output.setAddress(user.getAddress());
-            output.setSex(user.getSex());
+            if(user.getStatus()==1)
+                output.setStatus("Hoạt động");
         }
         return output;
     }
@@ -130,7 +118,6 @@ public class UserConverter {
             userInput.setPassword(userOutput.getPassword());
             userInput.setPhone(userOutput.getPhone());
             userInput.setAddress(userOutput.getAddress());
-            userInput.setSex(userOutput.getSex());
         }
         return userInput;
     }

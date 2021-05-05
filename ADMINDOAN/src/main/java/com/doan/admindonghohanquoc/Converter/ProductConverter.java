@@ -19,17 +19,16 @@ public class ProductConverter {
         {
             productOutput.setId(productEntity.getId());
             productOutput.setProductname(productEntity.getProductname());
-            productOutput.setImage(productEntity.getImage());
-            productOutput.setPrice(productEntity.getPrice());
             productOutput.setDescription(productEntity.getDescription());
-            if(productEntity.getStatus()==1)
-            productOutput.setStatus("Hoạt Động");
-            productOutput.setBrandentity(productEntity.getBrandentity());
-            productOutput.setQuantitysold(productEntity.getQuantitysold());
-            productOutput.setQuantityremaining(productEntity.getQuantityremaining());
-            System.out.println(productOutput.getQuantityremaining());
-            productOutput.setPath(productEntity.getPath());
+            productOutput.setBrandid(productEntity.getBrandentity().getId());
+            productOutput.setCategoryid(productEntity.getCategory().getId());
             productOutput.setPriceStr(productEntity.getPriceStr());
+            productOutput.setCreateAt(productEntity.getCreatedat());
+            productOutput.setStatus(productEntity.getStatus());
+            productOutput.setImage(productEntity.getImage());
+            productOutput.setBrandname(productEntity.getBrandentity().getName());
+            productOutput.setCategoryname(productEntity.getCategory().getName());
+            productOutput.setPrice(productEntity.getPrice());
         }
         return productOutput;
 
@@ -68,4 +67,5 @@ public class ProductConverter {
         }
         return productEntity;
     }*/
+
 }

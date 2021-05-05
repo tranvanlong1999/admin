@@ -48,7 +48,6 @@ public class ProductEntity {
     @JoinColumn(name = "Category_Id")
     private CategoriesEntity category;
     @OneToMany(mappedBy = "productentity")
-    @Exclude
     private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();
     @OneToMany(mappedBy = "productEntity")
     private List<OrderItemEntity> orderItemEntityList= new ArrayList<>();

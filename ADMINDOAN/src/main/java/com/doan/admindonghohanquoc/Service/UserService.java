@@ -46,6 +46,7 @@ public class UserService {
     @Transactional(rollbackOn = Exception.class)
     public String createUserByAdmin(Model model, UserInput userInput) {
         String result = "Themtaikhoan";
+        System.out.println(userInput);
         String error = null;
         UserEntity user = null;
         userInput.setUsername(userInput.getEmail());
@@ -54,7 +55,7 @@ public class UserService {
             if (Validate.checkRegister(userInput)) {
                 // step 2: check email exists
 
-                if (ObjectUtils.isEmpty(userRepository.findByUserName(userInput.getEmail()))) {
+                if (ObjectUtils.isEmpty(userRepository.findByEmail(userInput.getEmail()))) {
                     // convert from register input to user entity
                     user = userConverter.toUserInput(userInput);
                     user.setStatus(1); // con hoat dong
@@ -82,7 +83,7 @@ public class UserService {
     @Transactional(rollbackOn = Exception.class)
     public String deleteUserById(Integer id, Model model) {
         String error = null;
-        String result = "Themtaikhoan";
+        String result = "Quanlytaikhoan";
         try {
             // get user by ID
             UserEntity userEntity = userRepository.findById(id).get();
@@ -100,7 +101,6 @@ public class UserService {
 
     @Transactional(rollbackOn = Exception.class)
     public String updateUserByAdmin(UserOutput userOutput) {
-        System.out.println(userOutput.getId());
         String error = null;
         String result = "Chinhsuataikhoan";
         UserEntity userEntity;
@@ -120,7 +120,6 @@ public class UserService {
                 userEntity.setPassWord(userInput.getPassword());
                 userEntity.setPhone(userInput.getPhone());
                 userEntity.setAddress(userInput.getAddress());
-                userEntity.setSex(userInput.getSex());
                 // step 3: save
                 userRepository.save(userEntity);
                 // step 4: redirect page quan ly tai khoản

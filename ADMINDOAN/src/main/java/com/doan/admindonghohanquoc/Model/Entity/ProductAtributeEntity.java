@@ -1,7 +1,6 @@
 package com.doan.admindonghohanquoc.Model.Entity;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -13,7 +12,6 @@ public class ProductAtributeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "Product_ID")
     private ProductEntity productentity;
@@ -24,6 +22,5 @@ public class ProductAtributeEntity {
     @JoinColumn(name="Color_ID")
     private ColorEntity colorentity ;
     @Column
-    private int quantity;
-
+    private Integer quantity;
 }

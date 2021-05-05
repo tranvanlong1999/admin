@@ -1,12 +1,14 @@
 package com.doan.admindonghohanquoc.Model.Input;
 
-import com.doan.admindonghohanquoc.Model.Entity.BrandEntity;
-import com.doan.admindonghohanquoc.Model.Entity.CategoriesEntity;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.LinkedList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class ProductInput {
     private String productname;
     private String image;
@@ -15,6 +17,5 @@ public class ProductInput {
     private Integer brandid;
     private String createdby;
     private Integer categoryid;
-    /*private List<ProductAtributeInput> productAtributeInputList;
-    private List<ProductCategoriesInput> productCategoriesInputList;*/
+    private List<ProductAtributeInput> productAtributeInputs;
 }
