@@ -1,9 +1,7 @@
 package com.doan.admindonghohanquoc.Model.OutPut;
-import com.doan.admindonghohanquoc.Model.Entity.BrandEntity;
-import com.doan.admindonghohanquoc.Model.Entity.CategoriesEntity;
 import lombok.Data;
 
-import java.util.Date;
+
 
 @Data
 public class ProductOutput {
@@ -14,7 +12,7 @@ public class ProductOutput {
     private Integer categoryid;
     private String PriceStr;
     private int price;
-    private Date createAt;
+    private String createAt;
     private Integer status;
     private String Image;
     private String brandname;

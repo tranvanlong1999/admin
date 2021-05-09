@@ -1,20 +1,22 @@
 package com.doan.admindonghohanquoc.Controller;
 
-import com.doan.admindonghohanquoc.Model.OutPut.ProductOutput;
+import com.doan.admindonghohanquoc.Model.Entity.OrderEntity;
+import com.doan.admindonghohanquoc.Repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 
 @Controller
-@RequestMapping("/hoadon")
 public class QuanLyHoaDonController {
-    @GetMapping
+    @Autowired
+    OrderRepository orderRepository;
+    @GetMapping("/hoadon")
     public String hoadon(Model model) {
-       // List<ProductOutput> productOutputList = productService.getListProduct();
-       // model.addAttribute("productInfo", );
+        /*Page<OrderEntity> orderList = orderRepository.findAll(PageRequest.of(0,));*/
         return "Quanlyhoadon";
     }
 }

@@ -3,6 +3,8 @@ package com.doan.admindonghohanquoc.Model.Entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product_atribute")
@@ -23,4 +25,6 @@ public class ProductAtributeEntity {
     private ColorEntity colorentity ;
     @Column
     private Integer quantity;
+    @OneToMany(mappedBy = "productAtributeEntity")
+    private List<OrderItemEntity> orderItemEntityList= new ArrayList<>();
 }

@@ -13,8 +13,8 @@ public class OrderItemEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
-    @JoinColumn(name="Product_ID")
-    private ProductEntity productEntity;
+    @JoinColumn(name="Product_Atribute_ID")
+    private ProductAtributeEntity productAtributeEntity;
     @ManyToOne
     @JoinColumn(name = "Order_ID")
     private OrderEntity orderEntity;

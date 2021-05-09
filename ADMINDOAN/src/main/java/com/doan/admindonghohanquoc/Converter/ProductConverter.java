@@ -7,6 +7,8 @@ import com.doan.admindonghohanquoc.Model.OutPut.ProductOutput;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -15,6 +17,8 @@ public class ProductConverter {
     public ProductOutput toProductEntity(ProductEntity productEntity)
     {
         ProductOutput productOutput = new ProductOutput();
+        DateFormat dateFormat = null;
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         if(!ObjectUtils.isEmpty(productEntity))
         {
             productOutput.setId(productEntity.getId());
@@ -23,7 +27,7 @@ public class ProductConverter {
             productOutput.setBrandid(productEntity.getBrandentity().getId());
             productOutput.setCategoryid(productEntity.getCategory().getId());
             productOutput.setPriceStr(productEntity.getPriceStr());
-            productOutput.setCreateAt(productEntity.getCreatedat());
+            productOutput.setCreateAt(dateFormat.format(productEntity.getCreatedat()));
             productOutput.setStatus(productEntity.getStatus());
             productOutput.setImage(productEntity.getImage());
             productOutput.setBrandname(productEntity.getBrandentity().getName());
@@ -48,24 +52,5 @@ public class ProductConverter {
         }
         return productEntity;
     }
-    /*public ProductEntity toProductUpdateInput(ProductUpdateInput productUpdateInput)
-    {
-        ProductEntity productEntity = new ProductEntity();
-        if(!ObjectUtils.isEmpty(productUpdateInput))
-        {
-            productEntity.setId(productUpdateInput.getId());
-            productEntity.setProductname(productUpdateInput.getProductname());
-            productEntity.setImage(productUpdateInput.getImage());
-            productEntity.setPrice(productUpdateInput.getPrice());
-            productEntity.setDescription(productUpdateInput.getDescription());
-            productEntity.setStatus(productUpdateInput.getStatus());
-            productEntity.setBrandentity(productUpdateInput.getBrandEntity());
-            productEntity.setQuantitysold(productUpdateInput.getQuantitysold());
-            productEntity.setQuantityremaining(productUpdateInput.getQuantityremaining());
-            productEntity.setUpdatedat(new Date());
-            productEntity.setUpdatedby(productUpdateInput.getUpdatedby());
-        }
-        return productEntity;
-    }*/
 
 }

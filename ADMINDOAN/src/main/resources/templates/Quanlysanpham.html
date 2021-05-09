@@ -69,7 +69,7 @@
 								<td  th:text="*{index.categoryname}"></td>
 								<td  th:text="*{index.brandname}"></td>
 								<td  th:text="*{index.getProductname()}"></td>
-								<td th:text="${index.priceStr}"></td>
+								<td th:text="${#numbers.formatCurrency(index.price)}"></td>
 								<td th:text="*{index.createAt}"></td>
 								<td th:text="*{index.getStatus()}"></td>
 								<td>

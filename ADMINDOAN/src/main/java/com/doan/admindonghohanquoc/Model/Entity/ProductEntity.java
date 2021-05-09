@@ -49,8 +49,6 @@ public class ProductEntity {
     private CategoriesEntity category;
     @OneToMany(mappedBy = "productentity")
     private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();
-    @OneToMany(mappedBy = "productEntity")
-    private List<OrderItemEntity> orderItemEntityList= new ArrayList<>();
     public String getPriceStr() {
         return Utils.currencyMoney((int) this.price);
     }
