@@ -8,7 +8,6 @@ import com.doan.admindonghohanquoc.Model.Input.ProductInput;
 import com.doan.admindonghohanquoc.Model.OutPut.BrandOutput;
 import com.doan.admindonghohanquoc.Model.OutPut.CategoriesOutput;
 import com.doan.admindonghohanquoc.Model.OutPut.ProductOutput;
-import com.doan.admindonghohanquoc.Model.OutPut.UserOutput;
 import com.doan.admindonghohanquoc.Repository.ProductAtributeRepository;
 import com.doan.admindonghohanquoc.Repository.ProductRepository;
 import com.doan.admindonghohanquoc.Service.*;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.util.ArrayList;
 import java.util.List;

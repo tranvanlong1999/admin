@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -7,17 +7,7 @@
     <title>Flone - Minimalist eCommerce Bootstrap 4 Template - SHARED ON THEMELOCK.COM</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/favicon.png}">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
-    <!-- Icon Font CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/icons.min.css}" />
-     <!--Plugins CSS
-    <link rel="stylesheet" th:href="@{/assets/css/plugins.css}">-->
-    <!-- Main Style CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-    <!-- Modernizer JS -->
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <div th:replace="fragments/headerHome :: headerHome"></div>
 </head>
 
 <body>
@@ -38,51 +28,22 @@
     <div class="container">
         <div class="row" th:object="${productdetai}">
             <div class="col-lg-6 col-md-6">
-                <div class="product-details">
-                    <div class="product-details-img">
-                        <div class="tab-content jump">
-                            <div id="shop-details-1" class="tab-pane large-img-style">
-                                <img th:src="@{${productdetai.getImage()}}" alt="">
-                                <span class="dec-price">-10%</span>
-                                <div class="img-popup-wrap">
-                                    <a class="img-popup" href="assets/img/product-details/b-large-1.jpg"><i class="pe-7s-expand1"></i></a>
-                                </div>
-                            </div>
-                            <div id="shop-details-2" class="tab-pane active large-img-style">
-                                <img th:src="@{${productdetai.getImage()}}" alt="">
-                                <span class="dec-price">-10%</span>
-                                <div class="img-popup-wrap">
-                                    <a class="img-popup" href="assets/img/product-details/b-large-2.jpg"><i class="pe-7s-expand1"></i></a>
-                                </div>
-                            </div>
-                            <div id="shop-details-3" class="tab-pane large-img-style">
-                                <img th:src="@{${productdetai.getImage()}}" alt="">
-                                <span class="dec-price">-10%</span>
-                                <div class="img-popup-wrap">
-                                    <a class="img-popup" href="assets/img/product-details/b-large-3.jpg"><i class="pe-7s-expand1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="shop-details-tab nav">
-                            <a class="shop-details-overly" href="#shop-details-1" data-toggle="tab">
-                                <img th:src="@{${productdetai.getImage()}}" alt="">
-                            </a>
-                            <a class="shop-details-overly active" href="#shop-details-2" data-toggle="tab">
-                                <img th:src="@{${productdetai.getImage()}}" alt="">
-                            </a>
-                            <a class="shop-details-overly" href="#shop-details-3" data-toggle="tab">
-                                <img th:src="@{${productdetai.getImage()}}" alt="">
-                            </a>
-                        </div>
-                    </div>
+                <div class="product-details dec-img-wrap">
+                    <img th:src="@{${productdetai.getImage()}}" alt="">
+                    <span></span>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-content ml-70">
                     <h2 th:utext="*{productname}"></h2>
                     <div class="product-details-price">
-                        <span th:utext="*{priceStr}"> </span>
-                        <span class="old">$20.00 </span>
+                        <span th:utext="*{priceStr}">
+                            <span></span>
+                            <span class="old" ></span>
+                        </span>
+                        <span >
+                            <span></span>
+                        </span>
                     </div>
                     <div class="pro-details-rating-wrap">
                         <div class="pro-details-rating">
@@ -296,13 +257,13 @@
             <h2>Related products</h2>
         </div>
         <div class="related-product-active owl-carousel">
-            <div class="product-wrap" th:each="info :${listProductOfBrand}">
+            <div class="product-wrap">
                 <div class="product-img">
                     <a href="#">
-                        <img class="default-img" th:src="@{${info.getImage()}}" alt="">
-                        <img class="hover-img" th:src="@{${info.getImage()}}" alt="">
+                        <img class="default-img" src="assets/img/product/pro-1.jpg" alt="">
+                        <img class="hover-img" src="assets/img/product/pro-1-1.jpg" alt="">
                     </a>
-                    <span class="pink" >-10%</span>
+                    <span class="pink">-10%</span>
                     <div class="product-action">
                         <div class="pro-same-action pro-wishlist">
                             <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
@@ -324,7 +285,141 @@
                         <i class="fa fa-star-o"></i>
                         <i class="fa fa-star-o"></i>
                     </div>
-                    <div class="product-price" >
+                    <div class="product-price">
+                        <span>$ 60.00</span>
+                        <span class="old">$ 60.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-wrap">
+                <div class="product-img">
+                    <a href="single-product.html">
+                        <img class="default-img" src="assets/img/product/pro-2.jpg" alt="">
+                        <img class="hover-img" src="assets/img/product/pro-2-1.jpg" alt="">
+                    </a>
+                    <span class="purple">New</span>
+                    <div class="product-action">
+                        <div class="pro-same-action pro-wishlist">
+                            <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
+                        </div>
+                        <div class="pro-same-action pro-cart">
+                            <a title="Add To Cart" href="#"><i class="pe-7s-cart"></i> Add to cart</a>
+                        </div>
+                        <div class="pro-same-action pro-quickview">
+                            <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="pe-7s-look"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-content text-center">
+                    <h3><a href="product-details.html">T- Shirt And Jeans</a></h3>
+                    <div class="product-rating">
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <div class="product-price">
+                        <span>$ 60.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-wrap">
+                <div class="product-img">
+                    <a href="#">
+                        <img class="default-img" src="assets/img/product/pro-3.jpg" alt="">
+                        <img class="hover-img" src="assets/img/product/pro-3-1.jpg" alt="">
+                    </a>
+                    <span class="pink">-10%</span>
+                    <div class="product-action">
+                        <div class="pro-same-action pro-wishlist">
+                            <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
+                        </div>
+                        <div class="pro-same-action pro-cart">
+                            <a title="Add To Cart" href="#"><i class="pe-7s-cart"></i> Add to cart</a>
+                        </div>
+                        <div class="pro-same-action pro-quickview">
+                            <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="pe-7s-look"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-content text-center">
+                    <h3><a href="product-details.html">T- Shirt And Jeans</a></h3>
+                    <div class="product-rating">
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <div class="product-price">
+                        <span>$ 60.00</span>
+                        <span class="old">$ 60.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-wrap">
+                <div class="product-img">
+                    <a href="#">
+                        <img class="default-img" src="assets/img/product/pro-4.jpg" alt="">
+                        <img class="hover-img" src="assets/img/product/pro-4-1.jpg" alt="">
+                    </a>
+                    <span class="purple">New</span>
+                    <div class="product-action">
+                        <div class="pro-same-action pro-wishlist">
+                            <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
+                        </div>
+                        <div class="pro-same-action pro-cart">
+                            <a title="Add To Cart" href="#"><i class="pe-7s-cart"></i> Add to cart</a>
+                        </div>
+                        <div class="pro-same-action pro-quickview">
+                            <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="pe-7s-look"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-content text-center">
+                    <h3><a href="product-details.html">T- Shirt And Jeans</a></h3>
+                    <div class="product-rating">
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <div class="product-price">
+                        <span>$ 60.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-wrap">
+                <div class="product-img">
+                    <a href="#">
+                        <img class="default-img" src="assets/img/product/pro-5.jpg" alt="">
+                        <img class="hover-img" src="assets/img/product/pro-5-1.jpg" alt="">
+                    </a>
+                    <span class="pink">-10%</span>
+                    <div class="product-action">
+                        <div class="pro-same-action pro-wishlist">
+                            <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
+                        </div>
+                        <div class="pro-same-action pro-cart">
+                            <a title="Add To Cart" href="#"><i class="pe-7s-cart"></i> Add to cart</a>
+                        </div>
+                        <div class="pro-same-action pro-quickview">
+                            <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="pe-7s-look"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-content text-center">
+                    <h3><a href="product-details.html">T- Shirt And Jeans</a></h3>
+                    <div class="product-rating">
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o yellow"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <div class="product-price">
                         <span>$ 60.00</span>
                         <span class="old">$ 60.00</span>
                     </div>
@@ -469,19 +564,8 @@
     </div>
 </div>
 <!-- Modal end -->
+<div th:replace="fragments/scriptHome :: scriptHome"></div>
 
-<!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- Popper JS -->
-<script src="assets/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="assets/js/bootstrap.min.js"></script>
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
-<!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
 </body>
 
 </html>
