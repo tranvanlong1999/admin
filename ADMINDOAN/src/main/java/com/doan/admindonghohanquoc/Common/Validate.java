@@ -1,6 +1,7 @@
 package com.doan.admindonghohanquoc.Common;
 
 import com.doan.admindonghohanquoc.Model.Input.CategoryInput;
+import com.doan.admindonghohanquoc.Model.Input.LoginInput;
 import com.doan.admindonghohanquoc.Model.Input.ProductInput;
 import com.doan.admindonghohanquoc.Model.Input.UserInput;
 import org.springframework.util.StringUtils;
@@ -102,7 +103,24 @@ public class Validate {
 		}
 
 		return flag;
-
-
 	}
+	// home
+	@SuppressWarnings("deprecation")
+	public static boolean checkLogin(LoginInput user) {
+		boolean flag = false;
+		String email = user.getEmail();
+		String password = user.getPassword();
+		// case check email
+		if (!StringUtils.isEmpty(email)) {
+			Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+			if (matcher.find()) {
+				// case password
+				if (!StringUtils.isEmpty(password)) {
+					flag = true;
+				}
+			}
+		}
+		return flag;
+	}
+	//
 }

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="menuHome">
+    <header class="header-area clearfix">
+        <div class="header-top-area header-padding-2">
+            <div class="container-fluid">
+                <div class="header-top-wap">
+                    <div class="language-currency-wrap">
+                        <div class="same-language-currency language-style">
+                            <a href="#">Ngôn ngữ <i class="fa fa-angle-down"></i></a>
+                            <div class="lang-car-dropdown">
+                                <ul>
+                                    <li><a href="#">Việt Nam </a></li>
+                                    <li><a href="#">English </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="same-language-currency use-style">
+                        </div>
+                        <div class="same-language-currency">
+                        </div>
+                    </div>
+                    <div class="header-offer">
+                        <p>Chào mừng bạn đến với đồng hồ hàn quốc <span> Call 0358172099 </span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom sticky-bar header-res-padding header-padding-2">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-4">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img alt="" src="assets/img/logo/logothaythe.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 d-none d-lg-block">
+                        <div class="main-menu">
+                            <nav>
+                                <ul>
+                                    <li><a th:href="@{/home}">TRANG CHỦ </a>
+                                    </li>
+                                    <li><a th:href="@{/brand}"> THƯƠNG HIỆU <i class="fa fa-angle-down"></i></a>
+                                        <ul class="submenu" >
+                                            <li th:each="i : ${brandlist}"><a th:href="@{/getproductbybrand/{brandid}(brandid=${i.getId()})}" th:text="${i.getName()}"></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a  th:href="@{/brand}"> ĐỒNG HỒ NỮ<i class="fa fa-angle-down"></i></a>
+                                        <ul class="submenu">
+                                            <li><a href="#"></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a th:href="@{/brand}"> ĐỒNG HỒ NAM<i class="fa fa-angle-down"></i></a>
+                                        <ul class="submenu">
+                                            <li><a href="#"></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a th:href="@{/contact}"> LIÊN HỆ</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-8">
+                        <div class="header-right-wrap">
+                           <span th:unless="${session.email==null}">
+                               <p th:text="${session.email}"></p>
+                           </span>
+
+                            <div class="same-style header-search">
+                                <a class="search-active" href="#"><i class="pe-7s-search"></i></a>
+                                <div class="search-content">
+                                    <form action="#">
+                                        <input type="text" placeholder="Search" />
+                                        <button class="button-search"><i class="pe-7s-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="same-style account-satting">
+                                <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
+                                <div class="account-dropdown" style="width: 153px">
+                                    <ul>
+                                        <li><a th:href="@{/dang-nhap}">Đăng nhập</a></li>
+                                        <li><a th:href="@{/pagedangky}">Đăng ký</a></li>
+                                        <li><a href="wishlist.html">Sản phẩm yêu thích  </a></li>
+                                        <li><a href="my-account.html">Thông tin tài khoản</a></li>
+                                        <li th:if="${session.user != null}"><a  th:href="@{/logout}">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="same-style header-wishlist">
+                                <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                            </div>
+                            <div class="same-style cart-wrap">
+                                <a th:href="@{/order}">
+                                    <button class="icon-cart">
+
+                                        <i class="pe-7s-shopbag"></i>
+
+                                        <span class="count-style"></span>
+
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu-area">
+                    <div class="mobile-menu">
+                        <nav id="mobile-menu-active">
+                            <ul class="menu-overflow">
+                                <li><a href="index-3.html">TRANG CHỦ</a>
+                                </li>
+                                <li><a href="shop.html">Shop</a>
+                                    <ul>
+                                        <li><a href="#">shop layout</a>
+                                            <ul>
+                                                <li><a href="shop.html">standard style</a></li>
+                                                <li><a href="shop-filter.html">Grid filter style</a></li>
+                                                <li><a href="shop-grid-2-col.html">Grid 2 column</a></li>
+                                                <li><a href="shop-no-sidebar.html">Grid No sidebar</a></li>
+                                                <li><a href="shop-grid-fw.html">Grid full wide </a></li>
+                                                <li><a href="shop-right-sidebar.html">Grid right sidebar</a></li>
+                                                <li><a href="shop-list.html">list 1 column box </a></li>
+                                                <li><a href="shop-list-fw.html">list 1 column full wide </a></li>
+                                                <li><a href="shop-list-fw-2col.html">list 2 column  full wide</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">product details</a>
+                                            <ul>
+                                                <li><a href="product-details.html">tab style 1</a></li>
+                                                <li><a href="product-details-2.html">tab style 2</a></li>
+                                                <li><a href="product-details-3.html">tab style 3</a></li>
+                                                <li><a href="product-details-4.html">sticky style</a></li>
+                                                <li><a href="product-details-5.html">gallery style </a></li>
+                                                <li><a href="product-details-slider-box.html">Slider style</a></li>
+                                                <li><a href="product-details-affiliate.html">affiliate style</a></li>
+                                                <li><a href="product-details-6.html">fixed image style </a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="shop.html">Collection</a></li>
+                                <li><a href="#">Pages</a>
+                                    <ul>
+                                        <li><a href="about.html">about us</a></li>
+                                        <li><a href="cart-page.html">cart page</a></li>
+                                        <li><a href="checkout.html">checkout </a></li>
+                                        <li><a href="wishlist.html">wishlist </a></li>
+                                        <li><a href="my-account.html">my account</a></li>
+                                        <li><a href="login-register.html">login / register </a></li>
+                                        <li><a href="contact.html">contact us </a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="blog.html">Blog</a>
+                                    <ul>
+                                        <li><a href="blog.html">blog standard</a></li>
+                                        <li><a href="blog-no-sidebar.html">blog no sidebar</a></li>
+                                        <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
+                                        <li><a href="blog-details.html">blog details 1</a></li>
+                                        <li><a href="blog-details-2.html">blog details 2</a></li>
+                                        <li><a href="blog-details-3.html">blog details 3</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="about.html">About us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+</body>
+</html>

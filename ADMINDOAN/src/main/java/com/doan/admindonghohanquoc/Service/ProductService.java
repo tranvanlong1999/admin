@@ -6,26 +6,24 @@ import com.doan.admindonghohanquoc.Constants.Constants;
 import com.doan.admindonghohanquoc.Converter.ProductConverter;
 import com.doan.admindonghohanquoc.Model.Entity.*;
 import com.doan.admindonghohanquoc.Model.Input.ProductAtributeInput;
-import com.doan.admindonghohanquoc.Model.Input.ProductCategoriesInput;
 import com.doan.admindonghohanquoc.Model.Input.ProductInput;
-import com.doan.admindonghohanquoc.Model.Input.UserInput;
 import com.doan.admindonghohanquoc.Model.OutPut.ProductOutput;
-import com.doan.admindonghohanquoc.Model.OutPut.UserOutput;
 import com.doan.admindonghohanquoc.Repository.*;
 import com.doan.admindonghohanquoc.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class ProductService {
@@ -197,6 +195,28 @@ public class ProductService {
             result="redirect:/sanpham";
         }
         return result;
+    }
+
+
+    public Page<ProductEntity> getListProduct(Integer status, Pageable pageable, Model model) {
+        Page<ProductEntity> list = productRepository.findlistofstatus(pageable);
+        int totalPages = list.getTotalPages();
+        long tongbanghi= list.getTotalElements();
+        model.addAttribute("size",pageable.getPageSize());
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("tongbanghi",tongbanghi);
+        model.addAttribute("currentPage",list.getNumber());
+        if(totalPages>0)
+        {
+            List<Integer> pageNumbers = IntStream.rangeClosed(0, totalPages-1)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return list;
+    }
+    public ProductEntity getProductEntity(Integer productid) {
+        return productRepository.findById(productid).get();
     }
 
 

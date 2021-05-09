@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Flone - Minimalist eCommerce Bootstrap 4 Template - SHARED ON THEMELOCK.COM</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div th:replace="fragments/headerHome :: headerHome"></div>
+</head>
+
+<body>
+<div th:replace="fragments/menuHome :: menuHome"></div>
+<div class="login-register-area pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a data-toggle="tab" href="#lg2">
+                            <h4> Đăng ký </h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form th:action="@{/dangky}" method="post" th:object="${userInput}">
+                                        <input name="fullname" placeholder="Tên Đầy đủ" type="text" th:field="*{fullname}">
+                                        <input type="email" name="email" placeholder="email" th:field="*{email}">
+                                        <input type="password" name="user-password" placeholder="Mật Khẩu" th:field="*{password}">
+                                        <input type="password" name="repassword" placeholder="Nhập lại mật khẩu" th:field="*{rePassword}">
+                                        <input name="phone" placeholder="Điện thoại" type="tel" th:field="*{phone}">
+                                        <input name="address" placeholder="Địa chỉ" type="text" th:field="*{address}">
+                                        <div class="button-box">
+                                            <button type="submit"><span>Đăng Ký</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footerHome :: footerHome"></div>
+<div th:replace="fragments/scriptHome :: scriptHome"></div>
+
+</body>
+
+</html>

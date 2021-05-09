@@ -1,10 +1,14 @@
 package com.doan.admindonghohanquoc.Service;
 
 
+import com.doan.admindonghohanquoc.Common.Constant;
 import com.doan.admindonghohanquoc.Common.MessageConstant;
+import com.doan.admindonghohanquoc.Common.PageConstant;
 import com.doan.admindonghohanquoc.Common.Validate;
+import com.doan.admindonghohanquoc.Constants.Constants;
 import com.doan.admindonghohanquoc.Converter.UserConverter;
 import com.doan.admindonghohanquoc.Model.Entity.UserEntity;
+import com.doan.admindonghohanquoc.Model.Input.LoginInput;
 import com.doan.admindonghohanquoc.Model.Input.UserInput;
 import com.doan.admindonghohanquoc.Model.Input.UserUpdateInput;
 import com.doan.admindonghohanquoc.Model.OutPut.UserOutput;
@@ -17,6 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
@@ -150,5 +157,126 @@ public class UserService {
 
         }
         return output;
+    }
+
+
+    // home
+    public String pageLogout(Model model, HttpSession session, HttpServletResponse response) {
+        session.removeAttribute("user");
+        model.addAttribute("error", null);
+        // remove a cookie email
+        Cookie cookieEmail = new Cookie("email", null);
+        cookieEmail.setMaxAge(0); // expires in 7 days
+
+        // remove a cookie password
+        Cookie cookiePassword = new Cookie("password", null);
+        cookiePassword.setMaxAge(0); // expires in 7 days
+
+        // remove a cookie remember
+        Cookie cookieRemember = new Cookie("remember", null);
+        cookieRemember.setMaxAge(0); // expires in 7 days
+
+        // add cookie to response
+        response.addCookie(cookieEmail);
+        response.addCookie(cookiePassword);
+        response.addCookie(cookieRemember);
+
+        return "redirect:/dang-nhap";
+    }
+    // longin
+    public String login(Model model, HttpSession session, HttpServletResponse response, LoginInput userForm) {
+        String result = PageConstant.PAGE_LOGIN;
+        String message = null;
+        try {
+            if (Validate.checkLogin(userForm)) {
+                UserEntity user = userRepository.findByEmailAndPassWord(userForm.getEmail(),userForm.getPassword());
+
+                if (ObjectUtils.isEmpty(user)) {
+                    message = MessageConstant.LOGIN_ERROR;
+                } else {
+                    if (userForm.isRemember()) {
+                        // create a cookie email
+                        Cookie cookieEmail = new Cookie("email", user.getEmail());
+                        cookieEmail.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+
+                        // create a cookie password
+                        Cookie cookiePassword = new Cookie("password", user.getPassWord());
+                        cookiePassword.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+
+                        // remove a cookie remember
+                        Cookie cookieRemember = new Cookie("remember", "" + userForm.isRemember());
+                        cookieRemember.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+
+                        // add cookie to response
+                        response.addCookie(cookieEmail);
+                        response.addCookie(cookiePassword);
+                        response.addCookie(cookieRemember);
+                    } else {
+                        // remove a cookie email
+                        Cookie cookieEmail = new Cookie("email", null);
+                        cookieEmail.setMaxAge(0); // expires in 7 days
+
+                        // remove a cookie password
+                        Cookie cookiePassword = new Cookie("password", null);
+                        cookiePassword.setMaxAge(0); // expires in 7 days
+
+                        // remove a cookie remember
+                        Cookie cookieRemember = new Cookie("remember", null);
+                        cookieRemember.setMaxAge(0); // expires in 7 days
+
+                        // add cookie to response
+                        response.addCookie(cookieEmail);
+                        response.addCookie(cookiePassword);
+                        response.addCookie(cookieRemember);
+                    }
+                    // save session
+                    session.setAttribute("user", user);
+                    session.setAttribute("email",user.getEmail());
+                    result= "redirect:/home";
+                }
+            } else {
+                message = MessageConstant.LOGIN_ERROR;
+            }
+        } catch (Exception e) {
+            message = MessageConstant.LOGIN_ERROR;
+        }
+
+        model.addAttribute("error", message);
+        return result;
+    }
+    //regist
+    public String register(Model model, UserInput userInput) {
+        String result = PageConstant.PAGE_REGISTER;
+        String error = null;
+        UserEntity user = null;
+        try {
+            // step 1: validate
+            if (Validate.checkRegister(userInput)) {
+                // step 2: check email exists
+                if (ObjectUtils.isEmpty(userRepository.findByEmail(userInput.getEmail()))) {
+                    // convert from register input to user entity
+                    System.out.println("aa");
+                    userInput.setRole(Constants.ROLE_MEMBER);
+                    user = userConverter.toUserInput(userInput);
+                    user.setStatus(Constant.STATUS_ENABLE);
+
+//					user.setPassword(BCrypt.hashpw(userInput.getPassword(), BCrypt.gensalt(12)));
+
+                    // step 3: save
+                    userRepository.save(user);
+
+                    // step 4: redirect page login
+                    result = "redirect:/dang-nhap";
+                } else {
+                    error = MessageConstant.RIGISTER_ERROR;
+                }
+            } else {
+                error = MessageConstant.RIGISTER_ERROR;
+            }
+        } catch (Exception e) {
+            error = MessageConstant.RIGISTER_ERROR;
+        }
+        model.addAttribute("error", error);
+        return result;
     }
 }
