@@ -19,11 +19,11 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-7 col-md-8 col-12 ml-auto">
                         <div class="slider-content-3 slider-animated-1 text-center">
-                            <h3 class="animated">Stylish</h3>
-                            <h1 class="animated">Male Clothes</h1>
-                            <p class="animated">30% off Summer Vacation</p>
+                            <h3 class="animated">Sành Điệu</h3>
+                            <h1 class="animated">Đồng Hồ Nam</h1>
+                            <p class="animated">Giảm Giá cho kỳ Nghỉ</p>
                             <div class="slider-btn btn-hover">
-                                <a class="animated" href="shop.html">SHOP NOW</a>
+                                <a class="animated" th:href="@{/brand}">Mua Sắm Ngay</a>
                             </div>
                         </div>
                     </div>
@@ -35,11 +35,11 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-7 col-md-8 col-12 ml-auto">
                         <div class="slider-content-3 slider-animated-1 text-center">
-                            <h3 class="animated">Stylish</h3>
-                            <h1 class="animated">Male Clothes</h1>
-                            <p class="animated">30% off Summer Vacation</p>
+                            <h3 class="animated">Sang Trọng </h3>
+                            <h1 class="animated">Đồng Hồ Nữ</h1>
+                            <p class="animated">Giảm 30% </p>
                             <div class="slider-btn btn-hover">
-                                <a class="animated" href="shop.html">SHOP NOW</a>
+                                <a class="animated" th:href="@{/brand}">Mua Sắm Ngay</a>
                             </div>
                         </div>
                     </div>
@@ -108,9 +108,6 @@
                             <div class="price-2">
                                 <span th:text="${index.priceStr}"></span>
                                 <span class="old">$ 60.00</span>
-                                <p>
-                                <span th:each="size: ${listsize}" th:data="${size.getID()}" th:text="${size.name}"></span>
-                                </p>
                             </div>
                         </div>
                         <div class="pro-wishlist-2">

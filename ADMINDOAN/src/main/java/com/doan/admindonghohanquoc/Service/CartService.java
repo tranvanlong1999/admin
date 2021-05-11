@@ -135,6 +135,7 @@ public class CartService {
     public String addToCart(Model model, HttpSession session, ProductAtributeInput input) {
         try {
             System.out.println(input);
+
             Integer productID= productAtributeRepository.findById(input.getId()).get().getId();
             Cart cart = new Cart();
             List<Cart> carts = (List<Cart>) session.getAttribute(SESSION_CART);

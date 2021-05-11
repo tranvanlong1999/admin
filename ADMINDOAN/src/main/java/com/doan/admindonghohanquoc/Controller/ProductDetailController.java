@@ -1,16 +1,14 @@
 package com.doan.admindonghohanquoc.Controller;
 
 
+import com.doan.admindonghohanquoc.Model.Entity.ImageEntity;
 import com.doan.admindonghohanquoc.Model.Entity.ProductAtributeEntity;
 import com.doan.admindonghohanquoc.Model.Entity.ProductEntity;
 import com.doan.admindonghohanquoc.Model.Input.ProductAtributeInput;
 import com.doan.admindonghohanquoc.Model.OutPut.BrandOutput;
 import com.doan.admindonghohanquoc.Model.OutPut.CategoriesOutput;
 import com.doan.admindonghohanquoc.Model.OutPut.ProductOutput;
-import com.doan.admindonghohanquoc.Repository.ColorRepository;
-import com.doan.admindonghohanquoc.Repository.ProductAtributeRepository;
-import com.doan.admindonghohanquoc.Repository.ProductRepository;
-import com.doan.admindonghohanquoc.Repository.SizeRepository;
+import com.doan.admindonghohanquoc.Repository.*;
 import com.doan.admindonghohanquoc.Service.BrandService;
 import com.doan.admindonghohanquoc.Service.CategoriesService;
 import com.doan.admindonghohanquoc.Service.ProductDetailService;
@@ -41,11 +39,14 @@ public class ProductDetailController {
     ProductAtributeRepository productAtributeRepository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    ImageRepository imageRepository;
     @SneakyThrows
     @GetMapping("product-details/{productid}")
     public String getDetailProduct(@PathVariable("productid") Integer productid, Model model)
     {
         ProductAtributeInput productAtributeInput= new ProductAtributeInput();
+        ProductEntity productEntity= productRepository.findById(productid).get();
         model.addAttribute("productAtributeInput",productAtributeInput);
         List<CategoriesOutput> categoriesOutputList = categoriesService.getListCategories();
         ProductOutput productOutput= productDetailService.getDetailProduct(productid);
@@ -66,9 +67,13 @@ public class ProductDetailController {
         List<ProductEntity> listProductOfBrand= new LinkedList<>();
         List<ProductEntity> listEntity= productRepository.findAll();
         for (ProductEntity infor : listEntity) {
-            if(infor.getBrandentity().getId()==productOutput.getBrandid())
+            if(infor.getBrandentity().getId()==productOutput.getBrandid()
+                    && infor.getId()!=productOutput.getId()
+                    && infor.getStatus()==1)
                 listProductOfBrand.add(infor);
         }
+        List<ImageEntity> listImage = imageRepository.findByProduct(productEntity);
+        model.addAttribute("listImage",listImage);
         model.addAttribute("listProductOfBrand",listProductOfBrand);
         return "product-details";
     }

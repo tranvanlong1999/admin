@@ -29,6 +29,7 @@ public class CartController {
     @PostMapping("/addproductdetail-tocart")
     public String addproductdetail(@ModelAttribute("productAtributeInput") ProductAtributeInput productDetail, Model model)
     {
+        System.out.println(productDetail);
         /*productDetailId = productDetail.getId();*/
         info.setId(productDetail.getId());
         info.setQuantity(productDetail.getQuantity());
