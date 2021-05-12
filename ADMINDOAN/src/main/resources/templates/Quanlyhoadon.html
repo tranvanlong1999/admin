@@ -33,17 +33,17 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <!-- Button to Open the Modal -->
+                         <!--Button to Open the Modal
                         <a>
                             <button type="button" class="btn btn-success" >
                                 Thêm Sản Phẩm
                             </button>
-                        </a>
+                        </a>-->
                         <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
                                width="100%">
                             <thead>
                             <tr>
-                                <th class="th-sm">Họ Tên
+                                <th class="th-sm">Tên Khách hàng
                                 </th>
                                 <th class="th-sm">Địa Chỉ
                                 </th>
@@ -62,29 +62,27 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--<tr th:each="index :${productInfo}">
-                                <td>
-                                    <img class="default-img"  th:src="@{${index.image}}" style="height: 96px;">
-                                </td>
-                                <td  th:text="*{index.categoryname}"></td>
-                                <td  th:text="*{index.brandname}"></td>
-                                <td  th:text="*{index.getProductname()}"></td>
-                                <td th:text="${index.priceStr}"></td>
-                                <td th:text="*{index.createAt}"></td>
+                            <tr th:each="index :${listPage}">
+                                <td  th:text="*{index.getRecipientname()}"></td>
+                                <td  th:text="*{index.getRecipientaddress()}"></td>
+                                <td  th:text="*{index.getEmail()}"></td>
+                                <td  th:text="*{index.getRecipientphone()}"></td>
+                                <td  th:text="*{index.getTotal()}"></td>
+                                <td th:text="${index.getCreatedate()}"></td>
                                 <td th:text="*{index.getStatus()}"></td>
                                 <td>
-                                    <a th:href="@{/pagesuasanpham/{productid}(productid=${index.getId()})}">
+                                    <a>
                                         <button class="btn btn-success" type="button">Sửa</button>
                                     </a>
-                                    <a th:href="@{/xoasanpham(productid=${index.getId()})}">
+                                    <a>
                                         <button class="btn btn-danger">Xóa</button>
                                     </a>
-                                    <a th:href="@{/chitiet(productid=${index.getId()})}">
+                                    <!--<a >
                                         <button class="btn btn-primary">Chi Tiết</button>
-                                    </a>
+                                    </a>-->
                                     <br />
                                 </td>
-                            </tr>-->
+                            </tr>
 
                             </tbody>
 

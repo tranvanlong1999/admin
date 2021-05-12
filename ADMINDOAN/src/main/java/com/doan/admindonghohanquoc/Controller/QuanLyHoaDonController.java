@@ -16,7 +16,8 @@ public class QuanLyHoaDonController {
     OrderRepository orderRepository;
     @GetMapping("/hoadon")
     public String hoadon(Model model) {
-        /*Page<OrderEntity> orderList = orderRepository.findAll(PageRequest.of(0,));*/
+        Page<OrderEntity> listPage=orderRepository.findAll(PageRequest.of(0,5));
+        model.addAttribute("listPage",listPage);
         return "Quanlyhoadon";
     }
 }
