@@ -44,6 +44,8 @@ public class QuanLySanPhamController {
     @GetMapping("/sanpham")
     public String sanpham(Model model) {
         List<ProductOutput> productOutputList = productService.getListProduct();
+        StringBuilder productname = new StringBuilder();
+
         model.addAttribute("productInfo", productOutputList);
         return "Quanlysanpham";
     }

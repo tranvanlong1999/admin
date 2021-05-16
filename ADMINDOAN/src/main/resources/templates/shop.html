@@ -61,7 +61,7 @@
                                 <div class="col-xl-4 col-md-6 col-lg-6 col-sm-6" th:each="index : ${productInfo}">
                                     <div class="product-wrap mb-25 scroll-zoom">
                                         <div class="product-img">
-                                            <a href="#">
+                                            <a  th:href="@{/product-details/{productid}(productid=${index.getId()})}">
                                                 <img class="default-img" th:src="@{${index.getImage()}}" alt="">
                                                 <img class="hover-img" th:src="@{${index.getImage()}}" alt="">
                                             </a>
@@ -72,7 +72,7 @@
                                                 </div>
                                                 <div class="pro-same-action pro-cart">
                                                     <a title="THÊM VÀO GIỎ HÀNG"
-                                                       th:href="@{/gio-hang/add(id=${index.id})}"><i
+                                                       th:href="@{/product-details/{productid}(productid=${index.getId()})}"><i
                                                             class="pe-7s-cart"></i> THÊM VÀO GIỎ HÀNG</a>
                                                 </div>
                                                 <div class="pro-same-action pro-quickview">
@@ -178,48 +178,56 @@
                     <div class="sidebar-widget">
                         <h4 class="pro-sidebar-title"> </h4>
                         <div class="sidebar-widget-list mt-30">
-                            <ul>
-                                <li>
-                                    <div class="sidebar-widget-list-left" th:each="category :${categorylist}">
-                                        <input type="checkbox"> <a href="#" th:text="${category.name}"> <span>4</span> </a>
+                           <!-- <ul>
+                                <li th:each="category :${categorylist}">
+                                    <div class="sidebar-widget-list-left" >
+                                        <input type="checkbox">
+                                            <a href="#" th:text="${category.name}">
+                                                <span>4</span>
+                                            </a>
                                         <span class="checkmark"></span>
                                     </div>
                                 </li>
-                                <!--<li>
-                                <div class="sidebar-widget-list-left">
-                                    <input type="checkbox" value=""> <a href="#">In Stock <span>4</span> </a>
-                                    <span class="checkmark"></span>
-                                </div>
-                            </li>-->
-                            </ul>
+                            </ul>-->
                         </div>
                     </div>
                     <div class="sidebar-widget mt-50">
                         <h4 class="pro-sidebar-title">Lọc theo giá</h4>
                         <div class="sidebar-widget-list mt-20">
                             <ul>
-                                <li>
-                                    <div class="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" >   <a href="#">100.000 đ ->500.000 đ</a>
-                                        <span class="checkmark"></span>
-                                    </div>
-                                    <div class="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" >   <a href="#">500.000 đ ->1000.000 đ</a>
-                                        <span class="checkmark"></span>
-                                    </div>
-                                    <div class="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" >   <a href="#">1500.000 đ ->2000.000 đ</a>
-                                        <span class="checkmark"></span>
-                                    </div>
-                                    <div class="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" >   <a href="#">2000.000 đ trở lên</a>
-                                        <span class="checkmark"></span>
-                                    </div>
+                                <li th:each="price : ${PriceList.keySet()}">
+                                    <span>
+                                        <a th:href="@{/getproductbybrand/{brandid}/detail/{categoryid}/{priceValue}/(brandid=(${brandidInfo}==null ? -1 : ${brandidInfo}),
+                                            categoryid = (${categoryidInfo} ==null ? -1 : ${categoryidInfo}),
+                                            priceValue=${price})}" style="margin-left: 3px;">
+                                            <div th:if="${price_value==price}">
+                                                <input type="radio" name="checkPrice" class="form-check-input" style="width: 18px;margin-left: -2px;"
+                                                       th:value="${price}"
+                                                       th:checked="${price_value}"
+                                                >
+                                                <label style="margin-left: 28px;margin-top: 16px;" th:text="${PriceList.get(price)}"></label>
+                                            </div>
+                                            <div th:if="${price_value!= null && price_value!= price}">
+                                                <input type="radio" name="checkPrice" class="form-check-input" style="width: 18px;margin-left: -2px;"
+                                                       th:value="${price}"
+
+                                                >
+                                                <label style="margin-left: 28px;margin-top: 16px;" th:text="${PriceList.get(price)}"></label>
+                                            </div>
+                                            <div th:unless="${price_value!= null}">
+                                                <input type="radio" name="checkPrice" class="form-check-input" style="width: 18px;margin-left: -2px;"
+                                                       th:value="${price}"
+                                                >
+                                                <label style="margin-left: 28px;margin-top: 16px;" th:text="${PriceList.get(price)}"></label>
+                                            </div>
+                                        <br>
+                                        </a>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="sidebar-widget mt-50">
+                    <!--<div class="sidebar-widget mt-50">
                         <h4 class="pro-sidebar-title">Lọc theo màu</h4>
                         <div class="sidebar-widget-list mt-20">
                             <ul>
@@ -231,29 +239,33 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
+
                     <div class="sidebar-widget mt-40">
                         <h4 class="pro-sidebar-title">Thương Hiệu </h4>
                         <div class="sidebar-widget-list mt-20" >
                             <ul>
                                 <li>
                                     <div class="sidebar-widget-list-left" th:each="i : ${brandlist}" >
-                                        <a th:href="@{/getproductbybrand/{brandid}(brandid=${i.getId()})}">
-                                            <div th:if="${brandid == i.getId()}">
-                                                <input  type="checkbox" th:checked="${brandid}" th:text="${i.getName()}">
+                                        <a th:href="@{/getproductbybrand/{brandid}/detail/{categoryid}/{priceValue}/(brandid=${i.getId()},
+                                         categoryid =(${categoryidInfo} ==null ? -1 :${categoryidInfo}),
+                                         priceValue=(${price_value} ==null ? -1 : ${price_value}))}">
+                                            <div th:if="${brandidInfo == i.getId()}">
+                                                <input  type="checkbox" th:checked="${brandidInfo}" th:text="${i.getName()}">
                                                 <span class="checkmark"></span>
                                             </div>
-                                            <div th:if="${brandid != null && brandid != i.getId()}">
+                                            <div th:if="${brandidInfo != null && brandidInfo != i.getId()}">
                                                 <input  type="checkbox"  th:text="${i.getName()}">
                                                 <span class="checkmark"></span>
                                             </div>
-                                            <div th:unless="${brandid != null}">
+                                            <div th:unless="${brandidInfo != null}">
                                                 <input  type="checkbox"  th:text="${i.getName()}" th:value="${i.getId()}">
                                                 <span class="checkmark"></span>
                                             </div>
                                         </a>
 
                                     </div>
+
                                 </li>
                             </ul>
                         </div>

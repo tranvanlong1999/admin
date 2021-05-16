@@ -52,15 +52,9 @@
                                             <li th:each="i : ${brandlist}"><a th:href="@{/getproductbybrand/{brandid}(brandid=${i.getId()})}" th:text="${i.getName()}"></a></li>
                                         </ul>
                                     </li>
-                                    <li><a  th:href="@{/brand}"> ĐỒNG HỒ NỮ<i class="fa fa-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="#"></a></li>
-                                        </ul>
+                                    <li><a th:href="@{/getproductbybrand/{brandid}/detail/{categoryid}/{priceValue}/(brandid=-1 , categoryid =2, priceValue=-1)}"> ĐỒNG HỒ NỮ<i class=""></i></a>
                                     </li>
-                                    <li><a th:href="@{/brand}"> ĐỒNG HỒ NAM<i class="fa fa-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="#"></a></li>
-                                        </ul>
+                                    <li><a th:href="@{/getproductbybrand/{brandid}/detail/{categoryid}/{priceValue}/(brandid=-1 , categoryid =1, priceValue=-1)}"> ĐỒNG HỒ NAM<i class=""></i></a>
                                     </li>
                                     <li><a th:href="@{/contact}"> LIÊN HỆ</a></li>
                                 </ul>
