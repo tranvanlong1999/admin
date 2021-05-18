@@ -41,12 +41,12 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <p th:if="${error != null}" th:text="${error}"></p>
+                                    <p th:if="${error != null}" > <script>alert("Thông tin tài khoản mật khẩu không chính xác")</script></p>
                                     <form th:action="@{/dang-nhap}" method="post" th:object="${user}">
-                                        <input th:if="${email == null}" type="text" class="form-control" name="email" th:field="*{email}">
-                                        <input type="text" name="email"  th:unless="${email == null}" placeholder="Email"  th:value="${email}" />
-                                        <input th:if="${password == null}" type="password" class="form-control" name="password" th:field="*{password}">
-                                        <input type="password" name="user-password" th:unless="${password == null}" placeholder="Password" th:value="${password}"/>
+                                        <input th:if="${email == null}" type="text" class="form-control" name="email" th:field="*{email}" required>
+                                        <input type="text" name="email"  th:unless="${email == null}" placeholder="Email"  th:value="${email}" required />
+                                        <input th:if="${password == null}" type="password" class="form-control" name="password" th:field="*{password}" required>
+                                        <input type="password" name="user-password" th:unless="${password == null}" placeholder="Password" th:value="${password}" required/>
                                        <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input th:if="${remember == null}" type="checkbox" class="form-control" name="remember" value="true" th:field="*{remember}">

@@ -128,8 +128,8 @@
       } else {
         var atCursor = cmp(self.getCursor("to"), to) == 0, empty = !self.somethingSelected()
         self.replaceRange(endString, to);
-        if (atCursor) self.setSelection(empty ? to : self.getCursor("from"), to)
         self.replaceRange(startString, from);
+        if (atCursor) self.setSelection(empty ? to : self.getCursor("from"), to)
       }
     });
   });

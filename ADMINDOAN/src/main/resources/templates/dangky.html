@@ -26,13 +26,14 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
+                                    <p th:if="${error != null}" th:text="${error}"></p>
                                     <form th:action="@{/dangky}" method="post" th:object="${userInput}">
-                                        <input name="fullname" placeholder="Tên Đầy đủ" type="text" th:field="*{fullname}">
-                                        <input type="email" name="email" placeholder="email" th:field="*{email}">
-                                        <input type="password" name="user-password" placeholder="Mật Khẩu" th:field="*{password}">
-                                        <input type="password" name="repassword" placeholder="Nhập lại mật khẩu" th:field="*{rePassword}">
-                                        <input name="phone" placeholder="Điện thoại" type="tel" th:field="*{phone}">
-                                        <input name="address" placeholder="Địa chỉ" type="text" th:field="*{address}">
+                                        <input name="fullname" placeholder="Tên Đầy đủ" type="text" th:field="*{fullname}" required>
+                                        <input type="email" name="email" placeholder="email" th:field="*{email}" required>
+                                        <input type="password" name="user-password" placeholder="Mật Khẩu" th:field="*{password}" required>
+                                        <input type="password" name="repassword" placeholder="Nhập lại mật khẩu" th:field="*{rePassword}" required>
+                                        <input name="phone" placeholder="Điện thoại" type="tel" th:field="*{phone}" required>
+                                        <input name="address" placeholder="Địa chỉ" type="text" th:field="*{address}" required>
                                         <div class="button-box">
                                             <button type="submit"><span>Đăng Ký</span></button>
                                         </div>

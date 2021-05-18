@@ -42,6 +42,7 @@ public class PayService {
     @Transactional(rollbackOn = Exception.class)
     public String pay(HttpSession session, ReceiverInFor input) {
         try {
+            System.out.println(input);
             List<Cart> carts = (List<Cart>) session.getAttribute(SESSION_CART);
             List<OrderItemEntity> orderDetails = new ArrayList<>();
             OrderEntity order = new OrderEntity();

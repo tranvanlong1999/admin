@@ -36,7 +36,7 @@ public class PayController {
         return payService.pagePay(session, model);
     }
     @PostMapping
-    public String pay(HttpSession session, @ModelAttribute("user") ReceiverInFor input) {
+    public String pay(HttpSession session, @ModelAttribute("thongtinnguoinhan") ReceiverInFor input) {
         return payService.pay(session, input);
     }
 }
