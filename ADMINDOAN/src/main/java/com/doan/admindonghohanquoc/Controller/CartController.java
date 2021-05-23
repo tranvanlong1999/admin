@@ -29,11 +29,10 @@ public class CartController {
     @PostMapping("/addproductdetail-tocart")
     public String addproductdetail(@ModelAttribute("productAtributeInput") ProductAtributeInput productDetail, Model model)
     {
-        System.out.println(productDetail);
         /*productDetailId = productDetail.getId();*/
         info.setId(productDetail.getId());
         info.setQuantity(productDetail.getQuantity());
-        ProductAtributeEntity productAtributeEntity= productAtributeRepository.findById(productDetail.getId()).get();
+        ProductAtributeEntity productAtributeEntity= productAtributeRepository.findById(productDetail.getId()).get();;
         if(productAtributeEntity.getQuantity()  < productDetail.getQuantity())
         {
             Integer productid=productAtributeEntity.getProductentity().getId();

@@ -11,6 +11,8 @@ public class Cart {
     private int count;
     private int productId;
     private int sizeId;
+    private int colorId;
+    private int idproductdetail;
     private ProductAtributeEntity productDetail;
     public String getAmount() {
         int money = (int) (this.productDetail.getProductentity().getPrice() * this.count);

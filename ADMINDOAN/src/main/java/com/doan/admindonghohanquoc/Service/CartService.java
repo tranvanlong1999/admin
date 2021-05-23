@@ -1,6 +1,7 @@
 package com.doan.admindonghohanquoc.Service;
 
 import com.doan.admindonghohanquoc.Common.PageConstant;
+import com.doan.admindonghohanquoc.Model.Entity.ProductAtributeEntity;
 import com.doan.admindonghohanquoc.Model.Input.ProductAtributeInput;
 import com.doan.admindonghohanquoc.Model.OutPut.Cart;
 import com.doan.admindonghohanquoc.Repository.ColorRepository;
@@ -133,38 +134,45 @@ public class CartService {
     }
     @SuppressWarnings("unchecked")
     public String addToCart(Model model, HttpSession session, ProductAtributeInput input) {
+        //lấy product detaul tương úng với id sản phảm
+        ProductAtributeEntity info= productAtributeRepository.findById(input.getId()).get();
         try {
-            System.out.println(input);
-
-            Integer productID= productAtributeRepository.findById(input.getId()).get().getId();
             Cart cart = new Cart();
+            //get list cart in session
             List<Cart> carts = (List<Cart>) session.getAttribute(SESSION_CART);
             boolean flag = false;
+            // cart id không phải id product detail
             int cartId = 1;
             int index = 0;
             int total;
-
+            // nếu list cart trông khởi tạo list mới
             if (ObjectUtils.isEmpty(carts)) {
                 carts = new ArrayList<>();
             } else {
+                // for list
                 for (Cart item : carts) {
-                    if (item.getProductDetail().getProductentity().getId() == productID
-                            && item.getProductDetail().getId()== input.getId()
-                    ) {
+                    // nếu product detail đã có trong list
+                    index++;
+                    if (item.getIdproductdetail()==info.getId()) {
+                        // số lượng sản phẩm có trong card = số lượng đã có
                         cart = item;
                         flag = true;
-                        index++;
+
                         break;
                     }
                 }
+                //
                 cartId = carts.get(carts.size() - 1).getId() + 1;
             }
             if (flag) {
-                cart.setCount(cart.getCount() + 1);
-                carts.set(index - 1, cart);
+                cart.setCount(cart.getCount() + input.getQuantity());
+                carts.set(index-1, cart);
             } else {
                 cart.setId(cartId);
-                cart.setCount(1);
+                cart.setSizeId(info.getSizeentity().getID());
+                cart.setColorId(info.getColorentity().getId());
+                cart.setCount(input.getQuantity());
+                cart.setIdproductdetail(info.getId());
                 cart.setProductDetail(productAtributeRepository.findById(input.getId()).get());
                 carts.add(cart);
             }
