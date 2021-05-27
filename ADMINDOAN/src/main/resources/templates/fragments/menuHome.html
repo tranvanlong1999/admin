@@ -49,7 +49,10 @@
                                     </li>
                                     <li><a th:href="@{/brand}"> THƯƠNG HIỆU <i class="fa fa-angle-down"></i></a>
                                         <ul class="submenu" >
-                                            <li th:each="i : ${brandlist}"><a th:href="@{/getproductbybrand/{brandid}(brandid=${i.getId()})}" th:text="${i.getName()}"></a></li>
+                                            <li th:each="i : ${brandlist}"><a th:href="@{/getproductbybrand/{brandid}/detail/{categoryid}/{priceValue}/(brandid=${i.getId()},
+                                         categoryid =(${categoryidInfo} ==null ? -1 :${categoryidInfo}),
+                                         priceValue=(${price_value} ==null ? -1 : ${price_value}))}"
+                                                                              th:text="${i.getName()}"></a></li>
                                         </ul>
                                     </li>
                                     <li><a th:href="@{/getproductbybrand/{brandid}/detail/{categoryid}/{priceValue}/(brandid=-1 , categoryid =2, priceValue=-1)}"> ĐỒNG HỒ NỮ<i class=""></i></a>
